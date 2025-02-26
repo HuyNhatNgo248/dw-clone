@@ -72,6 +72,7 @@ export interface Config {
     'service-offers': ServiceOffer;
     footers: Footer;
     'navigation-bars': NavigationBar;
+    'subscription-forms': SubscriptionForm;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -84,6 +85,7 @@ export interface Config {
     'service-offers': ServiceOffersSelect<false> | ServiceOffersSelect<true>;
     footers: FootersSelect<false> | FootersSelect<true>;
     'navigation-bars': NavigationBarsSelect<false> | NavigationBarsSelect<true>;
+    'subscription-forms': SubscriptionFormsSelect<false> | SubscriptionFormsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -166,7 +168,8 @@ export interface Page {
   slug: string;
   serviceOffers?: (number | null) | ServiceOffer;
   navigationBar?: (number | null) | NavigationBar;
-  dynamicZone?: (HeroBlock | PromoBlock | ProductGridBlock | SubscriptionFormBlock)[] | null;
+  dynamicZone?: (HeroBlock | PromoBlock | ProductGridBlock)[] | null;
+  subscriptionForm?: (number | null) | SubscriptionForm;
   footer?: (number | null) | Footer;
   updatedAt: string;
   createdAt: string;
@@ -313,6 +316,17 @@ export interface ProductGridBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscription-forms".
+ */
+export interface SubscriptionForm {
+  id: number;
+  title: string;
+  layout?: SubscriptionFormBlock[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SubscriptionFormBlock".
  */
 export interface SubscriptionFormBlock {
@@ -324,8 +338,21 @@ export interface SubscriptionFormBlock {
       }[]
     | null;
   layout?: FormBlock[] | null;
-  privacyStatement?: string | null;
-  privacyLink?: string | null;
+  privacyStatement?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'SubscriptionForm';
@@ -413,6 +440,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'navigation-bars';
         value: number | NavigationBar;
+      } | null)
+    | ({
+        relationTo: 'subscription-forms';
+        value: number | SubscriptionForm;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -504,8 +535,8 @@ export interface PagesSelect<T extends boolean = true> {
         Hero?: T | HeroBlockSelect<T>;
         Promo?: T | PromoBlockSelect<T>;
         ProductGrid?: T | ProductGridBlockSelect<T>;
-        SubscriptionForm?: T | SubscriptionFormBlockSelect<T>;
       };
+  subscriptionForm?: T;
   footer?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -590,56 +621,6 @@ export interface ProductGridBlockSelect<T extends boolean = true> {
     | {
         Image?: T | ImageBlockSelect<T>;
       };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SubscriptionFormBlock_select".
- */
-export interface SubscriptionFormBlockSelect<T extends boolean = true> {
-  heading?: T;
-  subheading?:
-    | T
-    | {
-        text?: T;
-        id?: T;
-      };
-  layout?:
-    | T
-    | {
-        Form?: T | FormBlockSelect<T>;
-      };
-  privacyStatement?: T;
-  privacyLink?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FormBlock_select".
- */
-export interface FormBlockSelect<T extends boolean = true> {
-  heading?: T;
-  subheading?: T;
-  layout?:
-    | T
-    | {
-        Input?: T | InputBlockSelect<T>;
-        Button?: T | ButtonBlockSelect<T>;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "InputBlock_select".
- */
-export interface InputBlockSelect<T extends boolean = true> {
-  label?: T;
-  placeholder?: T;
-  helperText?: T;
-  type?: T;
   id?: T;
   blockName?: T;
 }
@@ -763,6 +744,69 @@ export interface SecondLevelBlockSelect<T extends boolean = true> {
     | {
         'list-item'?: T | ListItemBlockSelect<T>;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscription-forms_select".
+ */
+export interface SubscriptionFormsSelect<T extends boolean = true> {
+  title?: T;
+  layout?:
+    | T
+    | {
+        SubscriptionForm?: T | SubscriptionFormBlockSelect<T>;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SubscriptionFormBlock_select".
+ */
+export interface SubscriptionFormBlockSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  layout?:
+    | T
+    | {
+        Form?: T | FormBlockSelect<T>;
+      };
+  privacyStatement?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FormBlock_select".
+ */
+export interface FormBlockSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  layout?:
+    | T
+    | {
+        Input?: T | InputBlockSelect<T>;
+        Button?: T | ButtonBlockSelect<T>;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InputBlock_select".
+ */
+export interface InputBlockSelect<T extends boolean = true> {
+  label?: T;
+  placeholder?: T;
+  helperText?: T;
+  type?: T;
   id?: T;
   blockName?: T;
 }

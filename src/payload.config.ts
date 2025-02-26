@@ -13,6 +13,7 @@ import { Pages } from './collections/Pages'
 import { ServiceOffers } from './collections/ServiceOffers'
 import { Footers } from './collections/Footers'
 import { NavigationBars } from './collections/NavigationBars'
+import { SubscriptionForms } from './collections/SubscriptionForms'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -24,7 +25,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Pages, ServiceOffers, Footers, NavigationBars],
+  collections: [Users, Media, Pages, ServiceOffers, Footers, NavigationBars, SubscriptionForms],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

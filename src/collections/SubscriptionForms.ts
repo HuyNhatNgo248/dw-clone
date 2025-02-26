@@ -1,8 +1,8 @@
 import { CollectionConfig } from 'payload'
-import FooterBlock from '@/fields/ui/organisms/footer-block'
+import SubscriptionFormBlock from '@/fields/ui/organisms/subscription-form-block'
 
-export const Footers: CollectionConfig = {
-  slug: 'footers',
+export const SubscriptionForms: CollectionConfig = {
+  slug: 'subscription-forms',
   admin: {
     group: 'Layouts',
     useAsTitle: 'title',
@@ -18,7 +18,7 @@ export const Footers: CollectionConfig = {
       type: 'blocks',
       minRows: 1,
       maxRows: 20,
-      blocks: [FooterBlock],
+      blocks: [SubscriptionFormBlock],
     },
   ],
 }

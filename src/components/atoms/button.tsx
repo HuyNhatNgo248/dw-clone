@@ -1,6 +1,6 @@
 import type { ButtonBlock } from '@/payload-types'
 
-import { Button } from '@/components/ui/button'
+import { Button as ShadcnButton } from '@/components/ui/button'
 import Icon from './icon'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
@@ -14,38 +14,43 @@ interface ButtonProps
   }
 }
 
-export default function CustomButton({
+export default function Button({
   text,
   link,
   variant = 'primary',
   size = 'medium',
-  icon,
+  iconField,
   openInNewTab = false,
   id,
   classNames,
   ...props
 }: ButtonProps) {
+  const { blockName: _blockName, blockType: _blockType, ...buttonProps } = props
+
   const button = (
-    <Button
+    <ShadcnButton
       id={id || undefined}
-      asChild
-      {...props}
+      {...buttonProps}
       className={cn(
-        'transition-all rounded-md', // base button styling
+        'transition-all rounded-none cursor-pointer', // base button styling
         // Variant styles
-        variant === 'primary' && 'bg-black text-white hover:bg-gray-800',
-        variant === 'secondary' && 'bg-gray-500 text-white hover:bg-gray-600',
-        variant === 'tertiary' && 'bg-transparent border border-black text-black hover:bg-gray-100',
-        // Size styles
-        size === 'small' && 'px-3 py-1 text-sm',
-        size === 'medium' && 'px-4 py-2 text-base',
-        size === 'large' && 'px-6 py-3 text-lg',
+
+        {
+          'bg-black text-white': variant === 'primary',
+          'bg-gray-500 text-white': variant === 'secondary',
+          'bg-transparent border border-black text-black': variant === 'tertiary',
+        },
+        {
+          'px-3 py-1': size === 'small',
+          'px-4 py-2': size === 'medium',
+          'px-8 py-4': size === 'large',
+        },
         classNames?.button,
       )}
     >
-      {icon && <Icon path={icon} className={classNames?.icon} />}
+      {iconField && <Icon path={iconField} className={classNames?.icon} />}
       {text}
-    </Button>
+    </ShadcnButton>
   )
 
   if (!link) {

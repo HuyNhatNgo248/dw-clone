@@ -39,6 +39,12 @@ export const Pages: CollectionConfig = {
     DynamicZoneField,
 
     {
+      name: 'subscriptionForm',
+      type: 'relationship',
+      relationTo: 'subscription-forms' as CollectionSlug,
+      hasMany: false,
+    },
+    {
       name: 'footer',
       type: 'relationship',
       relationTo: 'footers' as CollectionSlug,

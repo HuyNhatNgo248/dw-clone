@@ -17,7 +17,7 @@ export const ServiceOffers: CollectionConfig = {
       name: 'layout',
       type: 'blocks',
       minRows: 1,
-      maxRows: 10,
+      maxRows: 20,
       blocks: [ListItemBlock],
     },
   ],

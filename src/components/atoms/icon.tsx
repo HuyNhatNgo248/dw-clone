@@ -1,5 +1,5 @@
-import { IconProp } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { cn } from '@/lib/utils'
+import * as Lu from 'react-icons/lu'
 
 interface IconProps {
   path: string
@@ -7,13 +7,14 @@ interface IconProps {
 }
 
 const Icon = ({ path, className }: IconProps) => {
-  const [prefix, iconName] = path.split('/')
+  if (!path) return null
+  const [_, iconName] = path.split('/')
 
-  if (!prefix || !iconName) {
-    return null
-  }
+  const IconComponent = (Lu as Record<string, React.ComponentType<{ className?: string }>>)[
+    iconName
+  ]
 
-  return <FontAwesomeIcon className={className} icon={{ prefix, iconName } as IconProp} />
+  return IconComponent ? <IconComponent className={cn('w-4 h-4', className)} /> : null
 }
 
 export default Icon

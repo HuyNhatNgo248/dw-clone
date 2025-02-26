@@ -6,7 +6,7 @@ const IconField: Field = {
   type: 'text',
   admin: {
     components: {
-      Field: '/src/components/payload/fontawesome.tsx',
+      Field: '/components/payload/icon-select.tsx',
     },
   },
   hasMany: false,

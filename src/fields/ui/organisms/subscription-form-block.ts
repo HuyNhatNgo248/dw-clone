@@ -31,11 +31,7 @@ const SubscriptionFormBlock: Block = {
     },
     {
       name: 'privacyStatement',
-      type: 'text',
-    },
-    {
-      name: 'privacyLink',
-      type: 'text',
+      type: 'richText',
     },
   ],
 }

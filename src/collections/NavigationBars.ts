@@ -17,7 +17,7 @@ export const NavigationBars: CollectionConfig = {
       name: 'layout',
       type: 'blocks',
       minRows: 1,
-      maxRows: 1,
+      maxRows: 20,
       blocks: [NavigationBarBlock],
     },
   ],
