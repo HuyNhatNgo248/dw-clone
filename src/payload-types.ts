@@ -73,6 +73,7 @@ export interface Config {
     footers: Footer;
     'navigation-bars': NavigationBar;
     'subscription-forms': SubscriptionForm;
+    'nav-menus': NavMenu;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -86,6 +87,7 @@ export interface Config {
     footers: FootersSelect<false> | FootersSelect<true>;
     'navigation-bars': NavigationBarsSelect<false> | NavigationBarsSelect<true>;
     'subscription-forms': SubscriptionFormsSelect<false> | SubscriptionFormsSelect<true>;
+    'nav-menus': NavMenusSelect<false> | NavMenusSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -419,6 +421,45 @@ export interface FooterBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "nav-menus".
+ */
+export interface NavMenu {
+  id: number;
+  title: string;
+  layout?: NavMenuBlock[] | null;
+  serviceOffers?: ListItemBlock[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NavMenuBlock".
+ */
+export interface NavMenuBlock {
+  layout?: (MenuItemBlock | ListItemBlock)[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Nav Menu';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MenuItemBlock".
+ */
+export interface MenuItemBlock {
+  categoryTitle?: string | null;
+  subcategories?:
+    | {
+        subcategoryTitle?: string | null;
+        layout?: (ListItemBlock | ImageBlock)[] | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Menu Item';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -451,6 +492,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'subscription-forms';
         value: number | SubscriptionForm;
+      } | null)
+    | ({
+        relationTo: 'nav-menus';
+        value: number | NavMenu;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -807,6 +852,60 @@ export interface InputBlockSelect<T extends boolean = true> {
   placeholder?: T;
   helperText?: T;
   type?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "nav-menus_select".
+ */
+export interface NavMenusSelect<T extends boolean = true> {
+  title?: T;
+  layout?:
+    | T
+    | {
+        'Nav Menu'?: T | NavMenuBlockSelect<T>;
+      };
+  serviceOffers?:
+    | T
+    | {
+        'list-item'?: T | ListItemBlockSelect<T>;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NavMenuBlock_select".
+ */
+export interface NavMenuBlockSelect<T extends boolean = true> {
+  layout?:
+    | T
+    | {
+        'Menu Item'?: T | MenuItemBlockSelect<T>;
+        'list-item'?: T | ListItemBlockSelect<T>;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MenuItemBlock_select".
+ */
+export interface MenuItemBlockSelect<T extends boolean = true> {
+  categoryTitle?: T;
+  subcategories?:
+    | T
+    | {
+        subcategoryTitle?: T;
+        layout?:
+          | T
+          | {
+              'list-item'?: T | ListItemBlockSelect<T>;
+              Image?: T | ImageBlockSelect<T>;
+            };
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
