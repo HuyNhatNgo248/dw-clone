@@ -289,15 +289,22 @@ export interface PromoBlock {
   heading?: string | null;
   subheading?: string | null;
   subtitle?: string | null;
-  body?: string | null;
+  body?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   layout?: (ButtonBlock | ImageBlock)[] | null;
-  links?:
-    | {
-        text?: string | null;
-        url?: string | null;
-        id?: string | null;
-      }[]
-    | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'Promo';
@@ -598,13 +605,6 @@ export interface PromoBlockSelect<T extends boolean = true> {
     | {
         Button?: T | ButtonBlockSelect<T>;
         Image?: T | ImageBlockSelect<T>;
-      };
-  links?:
-    | T
-    | {
-        text?: T;
-        url?: T;
-        id?: T;
       };
   id?: T;
   blockName?: T;

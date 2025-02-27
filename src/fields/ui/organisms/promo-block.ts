@@ -20,7 +20,7 @@ const PromoBlock: Block = {
     },
     {
       name: 'body',
-      type: 'text',
+      type: 'richText',
     },
     {
       name: 'layout', // required
@@ -31,20 +31,6 @@ const PromoBlock: Block = {
         // required
         ButtonBlock,
         ImageBlock,
-      ],
-    },
-    {
-      name: 'links',
-      type: 'array',
-      fields: [
-        {
-          name: 'text',
-          type: 'text',
-        },
-        {
-          name: 'url',
-          type: 'text',
-        },
       ],
     },
   ],

@@ -19,7 +19,7 @@ const SubscriptionForm: React.FC<SubscriptionFormProps> = ({ className, layout }
   const buttonData = formLayout?.[0].layout?.find((item) => item.blockType === 'Button')
 
   return (
-    <div className={cn('md:py-24 py-12 w-full border-y-1 border-gray-200', className)}>
+    <div className={cn('py-container w-full border-y-1 border-gray-200', className)}>
       <div className="mx-auto flex flex-col justify-center items-center gap-4 md:w-[500px] w-[90%]">
         {heading && <p className="font-bold text-center">{heading}</p>}
         {subheading &&

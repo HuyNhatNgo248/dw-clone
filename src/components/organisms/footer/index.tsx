@@ -18,7 +18,7 @@ const Footer: React.FC<FooterProps> = ({ className, layout }) => {
   return (
     <div
       className={cn(
-        'px-8 md:py-24 md:px-12 py-12 w-full bg-gray-100 flex flex-col md:gap-24 gap-16',
+        'px-8 md:px-12 py-container w-full bg-gray-100 flex flex-col md:gap-24 gap-16',
         className,
       )}
     >
