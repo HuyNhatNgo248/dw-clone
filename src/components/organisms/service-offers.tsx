@@ -1,7 +1,6 @@
 'use client'
 
 import type { ServiceOffer } from '@/payload-types'
-import Autoplay from 'embla-carousel-autoplay'
 
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 import { cn } from '@/lib/utils'
@@ -14,14 +13,7 @@ interface ServiceOffersProps extends ServiceOffer {
 const ServiceOffers: React.FC<ServiceOffersProps> = ({ className, layout }) => {
   return (
     <div className={cn('w-full py-2 px-12 flex justify-center bg-gray-100', className)}>
-      <Carousel
-        className="w-full"
-        plugins={[
-          Autoplay({
-            delay: 3000,
-          }),
-        ]}
-      >
+      <Carousel className="w-full">
         <CarouselContent>
           {layout?.map((item, index) => (
             <CarouselItem key={index} className="lg:basis-1/3 md:basis-1/2">

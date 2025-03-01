@@ -9,10 +9,11 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from '@/components/ui/drawer'
-import { useState, useRef, Fragment } from 'react'
+import { useState, useRef, useEffect, Fragment } from 'react'
 import Icon from '@/components/atoms/icon'
 import Link from 'next/link'
 import SubMenuDrawer from './sub-menu-drawer'
+import { useOpenSubMenu } from '../../_hooks/use-open-submenu'
 
 interface MenuDrawerContentProps extends NavigationMenu {
   className?: string
@@ -22,6 +23,23 @@ const MenuDrawerContent: React.FC<MenuDrawerContentProps> = ({ className, layout
   const [subDrawerOpen, setSubDrawerOpen] = useState(false)
   const [mainMenuItem, setMainMenuItem] = useState<MainMenuItem | null>(null)
   const outerDrawerContentRef = useRef<HTMLDivElement>(null)
+  const selectedMainMenu = useOpenSubMenu((state) => state.selectedMainMenu)
+  const setSelectedMainMenu = useOpenSubMenu((state) => state.setSelectedMainMenu)
+
+  useEffect(() => {
+    if (selectedMainMenu) {
+      setTimeout(() => {
+        setSubDrawerOpen(true)
+        setMainMenuItem(selectedMainMenu)
+      }, 350)
+    }
+  }, [selectedMainMenu])
+
+  useEffect(() => {
+    if (!subDrawerOpen) {
+      setSelectedMainMenu(null)
+    }
+  }, [subDrawerOpen, setSelectedMainMenu])
 
   return (
     <div className={className}>
