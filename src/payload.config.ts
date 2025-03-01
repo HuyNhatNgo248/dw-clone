@@ -10,12 +10,12 @@ import sharp from 'sharp'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
-import { ServiceOffers } from './collections/ServiceOffers'
-import { Footers } from './collections/Footers'
-import { NavigationBars } from './collections/NavigationBars'
+import { ServiceOffers } from './collections/layout/ServiceOffers'
+import { Footers } from './collections/layout/Footers'
+import { NavigationBars } from './collections/navigation/NavigationBars'
 import { SubscriptionForms } from './collections/SubscriptionForms'
-import { NavigationMenus } from './collections/NavigationMenus'
-import { MainMenuItems } from './collections/MainMenuItems'
+import { NavigationMenus } from './collections/navigation/NavigationMenus'
+import { MainMenuItems } from './collections/navigation/MainMenuItems'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
