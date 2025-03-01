@@ -1,5 +1,5 @@
 import { CollectionConfig } from 'payload'
-import ListItemBlock from '@/fields/ui/molecules/list-item'
+import ListItemBlock from '@/fields/ui/molecules/list-item-block'
 
 export const ServiceOffers: CollectionConfig = {
   slug: 'service-offers',

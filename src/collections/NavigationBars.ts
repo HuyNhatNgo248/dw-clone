@@ -1,10 +1,10 @@
-import { CollectionConfig } from 'payload'
+import { CollectionConfig, CollectionSlug } from 'payload'
 import NavigationBarBlock from '@/fields/ui/organisms/navigation-bar-block'
 
 export const NavigationBars: CollectionConfig = {
   slug: 'navigation-bars',
   admin: {
-    group: 'Layouts',
+    group: 'Navigation',
     useAsTitle: 'title',
   },
   fields: [
@@ -12,6 +12,12 @@ export const NavigationBars: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
+    },
+    {
+      name: 'navigationMenu',
+      type: 'relationship',
+      relationTo: 'navigation-menus' as CollectionSlug,
+      hasMany: false,
     },
     {
       name: 'layout',

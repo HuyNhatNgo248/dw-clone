@@ -16,7 +16,7 @@ import SubscriptionForm from '@/components/organisms/subscription-form'
 import DynamicZone from '@/components/organisms/dynamic-zone'
 
 export default async function HomePage() {
-  const data = await fetchPage('/home-page')
+  const data = await fetchPage('/home-page', {}, 5)
 
   if (data === null) return notFound()
 

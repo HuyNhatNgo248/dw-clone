@@ -73,7 +73,8 @@ export interface Config {
     footers: Footer;
     'navigation-bars': NavigationBar;
     'subscription-forms': SubscriptionForm;
-    'nav-menus': NavMenu;
+    'navigation-menus': NavigationMenu;
+    'main-menu-items': MainMenuItem;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -87,7 +88,8 @@ export interface Config {
     footers: FootersSelect<false> | FootersSelect<true>;
     'navigation-bars': NavigationBarsSelect<false> | NavigationBarsSelect<true>;
     'subscription-forms': SubscriptionFormsSelect<false> | SubscriptionFormsSelect<true>;
-    'nav-menus': NavMenusSelect<false> | NavMenusSelect<true>;
+    'navigation-menus': NavigationMenusSelect<false> | NavigationMenusSelect<true>;
+    'main-menu-items': MainMenuItemsSelect<false> | MainMenuItemsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -206,9 +208,74 @@ export interface ListItemBlock {
 export interface NavigationBar {
   id: number;
   title: string;
+  navigationMenu?: (number | null) | NavigationMenu;
   layout?: NavigationBarBlock[] | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "navigation-menus".
+ */
+export interface NavigationMenu {
+  id: number;
+  title: string;
+  layout?: NavigationMenuBlock[] | null;
+  serviceOffers?: ListItemBlock[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NavigationMenuBlock".
+ */
+export interface NavigationMenuBlock {
+  layout?: (ListItemBlock | MainMenuItemBlock)[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Navigation Menu';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MainMenuItemBlock".
+ */
+export interface MainMenuItemBlock {
+  mainMenuItems?: (number | MainMenuItem)[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'main-menu-item';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "main-menu-items".
+ */
+export interface MainMenuItem {
+  id: number;
+  title: string;
+  categoryTitle?: string | null;
+  slug: string;
+  subcategories?:
+    | {
+        subcategoryTitle?: string | null;
+        layout?: (ListItemBlock | ImageBlock)[] | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageBlock".
+ */
+export interface ImageBlock {
+  image: number | Media;
+  caption?: string | null;
+  description?: string | null;
+  link?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'image';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -225,22 +292,49 @@ export interface NavigationBarBlock {
  * via the `definition` "FirstLevelBlock".
  */
 export interface FirstLevelBlock {
-  leftIconList?: ListItemBlock[] | null;
+  leftIconList?: FirstLevelItemBlock[] | null;
   title?: string | null;
-  rightIconList?: ListItemBlock[] | null;
+  rightIconList?: FirstLevelItemBlock[] | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'First Level';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FirstLevelItemBlock".
+ */
+export interface FirstLevelItemBlock {
+  text?: string | null;
+  link?: string | null;
+  iconField?: string | null;
+  type?: ('menu-trigger' | 'link') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'First Level Item';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SecondLevelBlock".
  */
 export interface SecondLevelBlock {
-  layout?: ListItemBlock[] | null;
+  layout?: SecondLevelItemBlock[] | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'Second Level';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SecondLevelItemBlock".
+ */
+export interface SecondLevelItemBlock {
+  text?: string | null;
+  link?: string | null;
+  iconField?: string | null;
+  mainMenuItems?: (number | MainMenuItem)[] | null;
+  type?: ('menu-trigger' | 'link') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Second Level Item';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -269,19 +363,6 @@ export interface ButtonBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'Button';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ImageBlock".
- */
-export interface ImageBlock {
-  image: number | Media;
-  caption?: string | null;
-  description?: string | null;
-  link?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'Image';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -421,45 +502,6 @@ export interface FooterBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "nav-menus".
- */
-export interface NavMenu {
-  id: number;
-  title: string;
-  layout?: NavMenuBlock[] | null;
-  serviceOffers?: ListItemBlock[] | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "NavMenuBlock".
- */
-export interface NavMenuBlock {
-  layout?: (MenuItemBlock | ListItemBlock)[] | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'Nav Menu';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MenuItemBlock".
- */
-export interface MenuItemBlock {
-  categoryTitle?: string | null;
-  subcategories?:
-    | {
-        subcategoryTitle?: string | null;
-        layout?: (ListItemBlock | ImageBlock)[] | null;
-        id?: string | null;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'Menu Item';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -494,8 +536,12 @@ export interface PayloadLockedDocument {
         value: number | SubscriptionForm;
       } | null)
     | ({
-        relationTo: 'nav-menus';
-        value: number | NavMenu;
+        relationTo: 'navigation-menus';
+        value: number | NavigationMenu;
+      } | null)
+    | ({
+        relationTo: 'main-menu-items';
+        value: number | MainMenuItem;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -605,7 +651,7 @@ export interface HeroBlockSelect<T extends boolean = true> {
     | T
     | {
         Button?: T | ButtonBlockSelect<T>;
-        Image?: T | ImageBlockSelect<T>;
+        image?: T | ImageBlockSelect<T>;
       };
   id?: T;
   blockName?: T;
@@ -649,7 +695,7 @@ export interface PromoBlockSelect<T extends boolean = true> {
     | T
     | {
         Button?: T | ButtonBlockSelect<T>;
-        Image?: T | ImageBlockSelect<T>;
+        image?: T | ImageBlockSelect<T>;
       };
   id?: T;
   blockName?: T;
@@ -664,7 +710,7 @@ export interface ProductGridBlockSelect<T extends boolean = true> {
   layout?:
     | T
     | {
-        Image?: T | ImageBlockSelect<T>;
+        image?: T | ImageBlockSelect<T>;
       };
   id?: T;
   blockName?: T;
@@ -738,6 +784,7 @@ export interface FooterBlockSelect<T extends boolean = true> {
  */
 export interface NavigationBarsSelect<T extends boolean = true> {
   title?: T;
+  navigationMenu?: T;
   layout?:
     | T
     | {
@@ -768,14 +815,26 @@ export interface FirstLevelBlockSelect<T extends boolean = true> {
   leftIconList?:
     | T
     | {
-        'list-item'?: T | ListItemBlockSelect<T>;
+        'First Level Item'?: T | FirstLevelItemBlockSelect<T>;
       };
   title?: T;
   rightIconList?:
     | T
     | {
-        'list-item'?: T | ListItemBlockSelect<T>;
+        'First Level Item'?: T | FirstLevelItemBlockSelect<T>;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FirstLevelItemBlock_select".
+ */
+export interface FirstLevelItemBlockSelect<T extends boolean = true> {
+  text?: T;
+  link?: T;
+  iconField?: T;
+  type?: T;
   id?: T;
   blockName?: T;
 }
@@ -787,8 +846,21 @@ export interface SecondLevelBlockSelect<T extends boolean = true> {
   layout?:
     | T
     | {
-        'list-item'?: T | ListItemBlockSelect<T>;
+        'Second Level Item'?: T | SecondLevelItemBlockSelect<T>;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SecondLevelItemBlock_select".
+ */
+export interface SecondLevelItemBlockSelect<T extends boolean = true> {
+  text?: T;
+  link?: T;
+  iconField?: T;
+  mainMenuItems?: T;
+  type?: T;
   id?: T;
   blockName?: T;
 }
@@ -857,14 +929,14 @@ export interface InputBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "nav-menus_select".
+ * via the `definition` "navigation-menus_select".
  */
-export interface NavMenusSelect<T extends boolean = true> {
+export interface NavigationMenusSelect<T extends boolean = true> {
   title?: T;
   layout?:
     | T
     | {
-        'Nav Menu'?: T | NavMenuBlockSelect<T>;
+        'Navigation Menu'?: T | NavigationMenuBlockSelect<T>;
       };
   serviceOffers?:
     | T
@@ -876,24 +948,35 @@ export interface NavMenusSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "NavMenuBlock_select".
+ * via the `definition` "NavigationMenuBlock_select".
  */
-export interface NavMenuBlockSelect<T extends boolean = true> {
+export interface NavigationMenuBlockSelect<T extends boolean = true> {
   layout?:
     | T
     | {
-        'Menu Item'?: T | MenuItemBlockSelect<T>;
         'list-item'?: T | ListItemBlockSelect<T>;
+        'main-menu-item'?: T | MainMenuItemBlockSelect<T>;
       };
   id?: T;
   blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MenuItemBlock_select".
+ * via the `definition` "MainMenuItemBlock_select".
  */
-export interface MenuItemBlockSelect<T extends boolean = true> {
+export interface MainMenuItemBlockSelect<T extends boolean = true> {
+  mainMenuItems?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "main-menu-items_select".
+ */
+export interface MainMenuItemsSelect<T extends boolean = true> {
+  title?: T;
   categoryTitle?: T;
+  slug?: T;
   subcategories?:
     | T
     | {
@@ -902,12 +985,12 @@ export interface MenuItemBlockSelect<T extends boolean = true> {
           | T
           | {
               'list-item'?: T | ListItemBlockSelect<T>;
-              Image?: T | ImageBlockSelect<T>;
+              image?: T | ImageBlockSelect<T>;
             };
         id?: T;
       };
-  id?: T;
-  blockName?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

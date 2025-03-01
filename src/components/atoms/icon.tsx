@@ -14,7 +14,7 @@ const Icon = ({ path, className }: IconProps) => {
     iconName
   ]
 
-  return IconComponent ? <IconComponent className={cn('w-4 h-4', className)} /> : null
+  return IconComponent ? <IconComponent className={cn('w-4 h-4 stroke-1', className)} /> : null
 }
 
 export default Icon

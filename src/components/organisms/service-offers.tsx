@@ -26,7 +26,7 @@ const ServiceOffers: React.FC<ServiceOffersProps> = ({ className, layout }) => {
           {layout?.map((item, index) => (
             <CarouselItem key={index} className="lg:basis-1/3 md:basis-1/2">
               <div className="flex gap-2 w-full justify-center items-center font-thin">
-                {item.iconField && <Icon path={item.iconField} className="stroke-1" />}
+                {item.iconField && <Icon path={item.iconField} />}
                 {item.blockName && <p>{item.blockName}</p>}
               </div>
             </CarouselItem>

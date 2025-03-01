@@ -1,7 +1,7 @@
 import { Block } from 'payload'
 
 const ImageBlock: Block = {
-  slug: 'Image',
+  slug: 'image',
   interfaceName: 'ImageBlock',
   fields: [
     {

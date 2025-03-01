@@ -1,11 +1,11 @@
 import { CollectionConfig } from 'payload'
-import NavMenuBlock from '@/fields/ui/organisms/nav-menu-block'
-import ListItemBlock from '@/fields/ui/molecules/list-item'
+import ListItemBlock from '@/fields/ui/molecules/list-item-block'
+import NavigationMenuBlock from '@/fields/ui/organisms/navigation-menu-block'
 
-export const NavMenus: CollectionConfig = {
-  slug: 'nav-menus',
+export const NavigationMenus: CollectionConfig = {
+  slug: 'navigation-menus',
   admin: {
-    group: 'Layouts',
+    group: 'Navigation',
     useAsTitle: 'title',
   },
   fields: [
@@ -19,7 +19,7 @@ export const NavMenus: CollectionConfig = {
       type: 'blocks',
       minRows: 1,
       maxRows: 20,
-      blocks: [NavMenuBlock],
+      blocks: [NavigationMenuBlock],
     },
     {
       name: 'serviceOffers',

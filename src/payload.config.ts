@@ -14,7 +14,8 @@ import { ServiceOffers } from './collections/ServiceOffers'
 import { Footers } from './collections/Footers'
 import { NavigationBars } from './collections/NavigationBars'
 import { SubscriptionForms } from './collections/SubscriptionForms'
-import { NavMenus } from './collections/NavMenus'
+import { NavigationMenus } from './collections/NavigationMenus'
+import { MainMenuItems } from './collections/MainMenuItems'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -34,7 +35,8 @@ export default buildConfig({
     Footers,
     NavigationBars,
     SubscriptionForms,
-    NavMenus,
+    NavigationMenus,
+    MainMenuItems,
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

@@ -1,5 +1,5 @@
 import { Block } from 'payload'
-import ListItemBlock from '../molecules/list-item'
+import ListItemBlock from '../molecules/list-item-block'
 
 const FooterBlock: Block = {
   slug: 'Footer',

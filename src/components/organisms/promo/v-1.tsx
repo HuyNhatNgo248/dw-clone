@@ -10,7 +10,7 @@ interface PromoV1Props extends PromoBlock {
 }
 
 const PromoV1: React.FC<PromoV1Props> = ({ className, layout, body, heading }) => {
-  const imageData = layout?.find((item) => item.blockType === 'Image')?.image
+  const imageData = layout?.find((item) => item.blockType === 'image')?.image
 
   return (
     <div className={cn('grid md:grid-cols-2 grid-cols-1 w-container gap-12 md:pb-24', className)}>

@@ -1,5 +1,4 @@
 import type { HeroBlock, Media } from '@/payload-types'
-import Image from 'next/image'
 import Button from '@/components/atoms/button'
 import PayloadImage from '@/components/shared/payload-image'
 
@@ -8,7 +7,7 @@ interface HeroV1Props extends HeroBlock {
 }
 
 const HeroV1: React.FC<HeroV1Props> = ({ className, heading, subheading, layout }) => {
-  const imageData = layout?.find((item) => item.blockType === 'Image')?.image as Media
+  const imageData = layout?.find((item) => item.blockType === 'image')?.image as Media
   const buttonData = layout?.find((item) => item.blockType === 'Button')
 
   return (

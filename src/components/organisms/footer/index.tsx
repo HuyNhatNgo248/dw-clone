@@ -44,7 +44,7 @@ const Footer: React.FC<FooterProps> = ({ className, layout }) => {
           socialMedia.map((item, index) => (
             <div key={`${item.id}-${index}`}>
               <Link href={item.link || '/'}>
-                {item.iconField && <Icon path={item.iconField} className="w-6 h-6 stroke-1" />}
+                {item.iconField && <Icon path={item.iconField} className="w-6 h-6" />}
               </Link>
             </div>
           ))}
