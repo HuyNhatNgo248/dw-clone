@@ -613,6 +613,7 @@ export interface ProductInventory {
 export interface Product {
   id: number;
   name: string;
+  color: string;
   desc?: {
     root: {
       type: string;
@@ -1274,6 +1275,7 @@ export interface ProductInventorySelect<T extends boolean = true> {
  */
 export interface ProductsSelect<T extends boolean = true> {
   name?: T;
+  color?: T;
   desc?: T;
   category?: T;
   price?: T;

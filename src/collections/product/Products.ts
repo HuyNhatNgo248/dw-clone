@@ -1,5 +1,7 @@
 import { CollectionConfig, CollectionSlug } from 'payload'
 
+import ColorField from '@/fields/ui/atoms/color-field'
+
 export const Products: CollectionConfig = {
   slug: 'products',
   admin: {
@@ -12,6 +14,11 @@ export const Products: CollectionConfig = {
       type: 'text',
       required: true,
     },
+    ColorField({
+      name: 'color',
+      label: 'Color',
+      required: true,
+    }),
     {
       name: 'desc',
       type: 'richText',
