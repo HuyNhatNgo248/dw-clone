@@ -83,6 +83,7 @@ export interface Config {
     'product-categories': ProductCategory;
     'product-inventory': ProductInventory;
     products: Product;
+    'product-variants': ProductVariant;
     'cart-item': CartItem;
     'shopping-session': ShoppingSession;
     'payload-locked-documents': PayloadLockedDocument;
@@ -108,6 +109,7 @@ export interface Config {
     'product-categories': ProductCategoriesSelect<false> | ProductCategoriesSelect<true>;
     'product-inventory': ProductInventorySelect<false> | ProductInventorySelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
+    'product-variants': ProductVariantsSelect<false> | ProductVariantsSelect<true>;
     'cart-item': CartItemSelect<false> | CartItemSelect<true>;
     'shopping-session': ShoppingSessionSelect<false> | ShoppingSessionSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -613,8 +615,21 @@ export interface ProductInventory {
 export interface Product {
   id: number;
   name: string;
+  category: number | ProductCategory;
+  variants: (number | ProductVariant)[];
+  layout?: (number | null) | ServiceOffer;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-variants".
+ */
+export interface ProductVariant {
+  id: number;
+  name: string;
   color: string;
-  desc?: {
+  description: {
     root: {
       type: string;
       children: {
@@ -628,10 +643,10 @@ export interface Product {
       version: number;
     };
     [k: string]: unknown;
-  } | null;
-  category: number | ProductCategory;
+  };
   price: number;
   discount?: (number | null) | Discount;
+  images?: ImageBlock[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -732,6 +747,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'products';
         value: number | Product;
+      } | null)
+    | ({
+        relationTo: 'product-variants';
+        value: number | ProductVariant;
       } | null)
     | ({
         relationTo: 'cart-item';
@@ -1275,11 +1294,27 @@ export interface ProductInventorySelect<T extends boolean = true> {
  */
 export interface ProductsSelect<T extends boolean = true> {
   name?: T;
-  color?: T;
-  desc?: T;
   category?: T;
+  variants?: T;
+  layout?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-variants_select".
+ */
+export interface ProductVariantsSelect<T extends boolean = true> {
+  name?: T;
+  color?: T;
+  description?: T;
   price?: T;
   discount?: T;
+  images?:
+    | T
+    | {
+        image?: T | ImageBlockSelect<T>;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
