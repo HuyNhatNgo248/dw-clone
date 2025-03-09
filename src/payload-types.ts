@@ -75,6 +75,16 @@ export interface Config {
     'subscription-forms': SubscriptionForm;
     'navigation-menus': NavigationMenu;
     'main-menu-items': MainMenuItem;
+    'order-details': OrderDetail;
+    'order-items': OrderItem;
+    'payment-details': PaymentDetail;
+    'user-payment': UserPayment;
+    discounts: Discount;
+    'product-categories': ProductCategory;
+    'product-inventory': ProductInventory;
+    products: Product;
+    'cart-item': CartItem;
+    'shopping-session': ShoppingSession;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -90,6 +100,16 @@ export interface Config {
     'subscription-forms': SubscriptionFormsSelect<false> | SubscriptionFormsSelect<true>;
     'navigation-menus': NavigationMenusSelect<false> | NavigationMenusSelect<true>;
     'main-menu-items': MainMenuItemsSelect<false> | MainMenuItemsSelect<true>;
+    'order-details': OrderDetailsSelect<false> | OrderDetailsSelect<true>;
+    'order-items': OrderItemsSelect<false> | OrderItemsSelect<true>;
+    'payment-details': PaymentDetailsSelect<false> | PaymentDetailsSelect<true>;
+    'user-payment': UserPaymentSelect<false> | UserPaymentSelect<true>;
+    discounts: DiscountsSelect<false> | DiscountsSelect<true>;
+    'product-categories': ProductCategoriesSelect<false> | ProductCategoriesSelect<true>;
+    'product-inventory': ProductInventorySelect<false> | ProductInventorySelect<true>;
+    products: ProductsSelect<false> | ProductsSelect<true>;
+    'cart-item': CartItemSelect<false> | CartItemSelect<true>;
+    'shopping-session': ShoppingSessionSelect<false> | ShoppingSessionSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -502,6 +522,143 @@ export interface FooterBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "order-details".
+ */
+export interface OrderDetail {
+  id: number;
+  user_id: string;
+  total: number;
+  payment_id: number;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "order-items".
+ */
+export interface OrderItem {
+  id: number;
+  order_id: number;
+  product_id: number;
+  quantity: number;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payment-details".
+ */
+export interface PaymentDetail {
+  id: number;
+  order_id: number;
+  amount: number;
+  provider: string;
+  status: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "user-payment".
+ */
+export interface UserPayment {
+  id: number;
+  user_id: number;
+  payment_type: string;
+  provider: string;
+  account_no: number;
+  expiry: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "discounts".
+ */
+export interface Discount {
+  id: number;
+  name: string;
+  desc?: string | null;
+  discount_percent: number;
+  active?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-categories".
+ */
+export interface ProductCategory {
+  id: number;
+  slug: string;
+  title: string;
+  desc?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-inventory".
+ */
+export interface ProductInventory {
+  id: number;
+  quantity: number;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products".
+ */
+export interface Product {
+  id: number;
+  name: string;
+  desc?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  category: number | ProductCategory;
+  price: number;
+  discount?: (number | null) | Discount;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cart-item".
+ */
+export interface CartItem {
+  id: number;
+  session_id: number;
+  product_id: number;
+  quantity: number;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "shopping-session".
+ */
+export interface ShoppingSession {
+  id: number;
+  user_id: string;
+  total: number;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -542,6 +699,46 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'main-menu-items';
         value: number | MainMenuItem;
+      } | null)
+    | ({
+        relationTo: 'order-details';
+        value: number | OrderDetail;
+      } | null)
+    | ({
+        relationTo: 'order-items';
+        value: number | OrderItem;
+      } | null)
+    | ({
+        relationTo: 'payment-details';
+        value: number | PaymentDetail;
+      } | null)
+    | ({
+        relationTo: 'user-payment';
+        value: number | UserPayment;
+      } | null)
+    | ({
+        relationTo: 'discounts';
+        value: number | Discount;
+      } | null)
+    | ({
+        relationTo: 'product-categories';
+        value: number | ProductCategory;
+      } | null)
+    | ({
+        relationTo: 'product-inventory';
+        value: number | ProductInventory;
+      } | null)
+    | ({
+        relationTo: 'products';
+        value: number | Product;
+      } | null)
+    | ({
+        relationTo: 'cart-item';
+        value: number | CartItem;
+      } | null)
+    | ({
+        relationTo: 'shopping-session';
+        value: number | ShoppingSession;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -989,6 +1186,119 @@ export interface MainMenuItemsSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "order-details_select".
+ */
+export interface OrderDetailsSelect<T extends boolean = true> {
+  user_id?: T;
+  total?: T;
+  payment_id?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "order-items_select".
+ */
+export interface OrderItemsSelect<T extends boolean = true> {
+  order_id?: T;
+  product_id?: T;
+  quantity?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payment-details_select".
+ */
+export interface PaymentDetailsSelect<T extends boolean = true> {
+  order_id?: T;
+  amount?: T;
+  provider?: T;
+  status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "user-payment_select".
+ */
+export interface UserPaymentSelect<T extends boolean = true> {
+  user_id?: T;
+  payment_type?: T;
+  provider?: T;
+  account_no?: T;
+  expiry?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "discounts_select".
+ */
+export interface DiscountsSelect<T extends boolean = true> {
+  name?: T;
+  desc?: T;
+  discount_percent?: T;
+  active?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-categories_select".
+ */
+export interface ProductCategoriesSelect<T extends boolean = true> {
+  slug?: T;
+  title?: T;
+  desc?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-inventory_select".
+ */
+export interface ProductInventorySelect<T extends boolean = true> {
+  quantity?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products_select".
+ */
+export interface ProductsSelect<T extends boolean = true> {
+  name?: T;
+  desc?: T;
+  category?: T;
+  price?: T;
+  discount?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cart-item_select".
+ */
+export interface CartItemSelect<T extends boolean = true> {
+  session_id?: T;
+  product_id?: T;
+  quantity?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "shopping-session_select".
+ */
+export interface ShoppingSessionSelect<T extends boolean = true> {
+  user_id?: T;
+  total?: T;
   updatedAt?: T;
   createdAt?: T;
 }
