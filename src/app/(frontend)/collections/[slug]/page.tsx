@@ -15,10 +15,17 @@ import Footer from '@/components/organisms/footer'
 import SubscriptionForm from '@/components/organisms/subscription-form'
 import DynamicZone from '@/components/organisms/dynamic-zone'
 
+import { DataFromCollectionSlug, CollectionSlug } from 'payload'
+
 export default async function CollectionProductsPage({ params }: { params: { slug: string } }) {
   const { slug } = await params
 
-  const data = await fetchCollection('pages', `/collections/${slug}`, {}, 5)
+  const data = (await fetchCollection(
+    'pages',
+    `/collections/${slug}`,
+    {},
+    5,
+  )) as DataFromCollectionSlug<CollectionSlug>
 
   if (data === null) return notFound()
 
