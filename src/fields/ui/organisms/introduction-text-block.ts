@@ -1,7 +1,7 @@
 import { Block } from 'payload'
 
 const IntroductionTextBlock: Block = {
-  slug: 'Introduction Text Block',
+  slug: 'Introduction Text',
   interfaceName: 'IntroductionTextBlock',
   fields: [
     {

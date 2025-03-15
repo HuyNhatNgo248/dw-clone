@@ -7,6 +7,7 @@ import ProductCategoriesGridV1 from '@/components/organisms/product-categories-g
 import ProductCategoriesGridV2 from '@/components/organisms/product-categories-grid/v-2'
 import PromoV1 from '@/components/organisms/promo/v-1'
 import PromoV2 from '@/components/organisms/promo/v-2'
+import IntroductionTextV1 from '@/components/organisms/introduction-text/v-1'
 
 interface DynamicZoneProps {
   zone: Page['dynamicZone']
@@ -19,10 +20,12 @@ type ComponentMapType = {
   [key: string]: {
     [key: string]:
       | typeof HeroV1
+      | typeof HeroV3
       | typeof ProductCategoriesGridV1
       | typeof ProductCategoriesGridV2
       | typeof PromoV1
       | typeof PromoV2
+      | typeof IntroductionTextV1
   }
 }
 
@@ -38,6 +41,9 @@ const ComponentMap: ComponentMapType = {
   Promo: {
     'v-1': PromoV1,
     'v-2': PromoV2,
+  },
+  'Introduction Text': {
+    'v-1': IntroductionTextV1,
   },
 }
 

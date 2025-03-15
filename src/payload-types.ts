@@ -479,7 +479,7 @@ export interface IntroductionTextBlock {
   };
   id?: string | null;
   blockName?: string | null;
-  blockType: 'Introduction Text Block';
+  blockType: 'Introduction Text';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -933,7 +933,7 @@ export interface PagesSelect<T extends boolean = true> {
         Promo?: T | PromoBlockSelect<T>;
         'Product Categories Grid'?: T | ProductCategoriesGridBlockSelect<T>;
         'Product Categories'?: T | ProductCategoriesBlockSelect<T>;
-        'Introduction Text Block'?: T | IntroductionTextBlockSelect<T>;
+        'Introduction Text'?: T | IntroductionTextBlockSelect<T>;
       };
   subscriptionForm?: T;
   footer?: T;
