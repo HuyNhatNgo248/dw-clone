@@ -14,7 +14,7 @@ const PromoV1: React.FC<PromoV1Props> = ({ className, layout, body, heading }) =
 
   return (
     <div className={cn('grid md:grid-cols-2 grid-cols-1 w-container gap-12 md:pb-24', className)}>
-      <div>{imageData && <PayloadImage {...(imageData as Media)} />}</div>
+      {imageData && <PayloadImage {...(imageData as Media)} />}
 
       <div className="flex flex-col justify-center gap-4 md:items-start items-center pb-12 md:pb-0">
         {heading && <p className="text-2xl font-bold">{heading}</p>}
