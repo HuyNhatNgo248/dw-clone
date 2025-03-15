@@ -6,6 +6,7 @@ import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
+import { EXPERIMENTAL_TableFeature } from '@payloadcms/richtext-lexical'
 
 // Collections
 import { Users } from './collections/Users'
@@ -36,6 +37,7 @@ import { ProductCategories } from './collections/product/ProductCategories'
 import { ProductInventory } from './collections/product/ProductInventory'
 import { Products } from './collections/product/Products'
 import { ProductVariants } from './collections/product/ProductVariants'
+import { ProductSizeGuides } from './collections/product/ProductSizeGuides'
 
 // Session Collections
 import { CartItem } from './collections/session/CartItem'
@@ -70,10 +72,13 @@ export default buildConfig({
     ProductInventory,
     Products,
     ProductVariants,
+    ProductSizeGuides,
     CartItem,
     ShoppingSession,
   ],
-  editor: lexicalEditor(),
+  editor: lexicalEditor({
+    features: ({ defaultFeatures }) => [...defaultFeatures, EXPERIMENTAL_TableFeature()],
+  }),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),

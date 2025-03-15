@@ -13,6 +13,7 @@ export const COLORS: { [hex: string]: string } = {
   '#e5af87': 'Rose Gold',
   '#c1c1c1': 'Silver',
   '#747474': 'Graphite',
+  '#000001': 'Silver',
   '#000000': 'Black',
 }
 

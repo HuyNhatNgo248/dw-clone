@@ -84,6 +84,7 @@ export interface Config {
     'product-inventory': ProductInventory;
     products: Product;
     'product-variants': ProductVariant;
+    'product-size-guides': ProductSizeGuide;
     'cart-item': CartItem;
     'shopping-session': ShoppingSession;
     'payload-locked-documents': PayloadLockedDocument;
@@ -110,6 +111,7 @@ export interface Config {
     'product-inventory': ProductInventorySelect<false> | ProductInventorySelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
     'product-variants': ProductVariantsSelect<false> | ProductVariantsSelect<true>;
+    'product-size-guides': ProductSizeGuidesSelect<false> | ProductSizeGuidesSelect<true>;
     'cart-item': CartItemSelect<false> | CartItemSelect<true>;
     'shopping-session': ShoppingSessionSelect<false> | ShoppingSessionSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -194,7 +196,7 @@ export interface Page {
   slug: string;
   serviceOffers?: (number | null) | ServiceOffer;
   navigationBar?: (number | null) | NavigationBar;
-  dynamicZone?: (HeroBlock | PromoBlock | ProductGridBlock)[] | null;
+  dynamicZone?: (HeroBlock | PromoBlock | ProductGridBlock | IntroductionTextBlock | ProductCategoriesBlock)[] | null;
   subscriptionForm?: (number | null) | SubscriptionForm;
   footer?: (number | null) | Footer;
   updatedAt: string;
@@ -428,6 +430,52 @@ export interface ProductGridBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "IntroductionTextBlock".
+ */
+export interface IntroductionTextBlock {
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Introduction Text Block';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProductCategoriesBlock".
+ */
+export interface ProductCategoriesBlock {
+  productCategories?: (number | ProductCategory)[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Product Categories';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-categories".
+ */
+export interface ProductCategory {
+  id: number;
+  slug: string;
+  title: string;
+  desc?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "subscription-forms".
  */
 export interface SubscriptionForm {
@@ -588,18 +636,6 @@ export interface Discount {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "product-categories".
- */
-export interface ProductCategory {
-  id: number;
-  slug: string;
-  title: string;
-  desc?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "product-inventory".
  */
 export interface ProductInventory {
@@ -629,6 +665,16 @@ export interface ProductVariant {
   id: number;
   name: string;
   color: string;
+  size:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  sizeGuide?: (number | null) | ProductSizeGuide;
   description: {
     root: {
       type: string;
@@ -647,6 +693,31 @@ export interface ProductVariant {
   price: number;
   discount?: (number | null) | Discount;
   images?: ImageBlock[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-size-guides".
+ */
+export interface ProductSizeGuide {
+  id: number;
+  name: string;
+  guide: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -753,6 +824,10 @@ export interface PayloadLockedDocument {
         value: number | ProductVariant;
       } | null)
     | ({
+        relationTo: 'product-size-guides';
+        value: number | ProductSizeGuide;
+      } | null)
+    | ({
         relationTo: 'cart-item';
         value: number | CartItem;
       } | null)
@@ -850,6 +925,8 @@ export interface PagesSelect<T extends boolean = true> {
         Hero?: T | HeroBlockSelect<T>;
         Promo?: T | PromoBlockSelect<T>;
         ProductGrid?: T | ProductGridBlockSelect<T>;
+        'Introduction Text Block'?: T | IntroductionTextBlockSelect<T>;
+        'Product Categories'?: T | ProductCategoriesBlockSelect<T>;
       };
   subscriptionForm?: T;
   footer?: T;
@@ -929,6 +1006,24 @@ export interface ProductGridBlockSelect<T extends boolean = true> {
     | {
         image?: T | ImageBlockSelect<T>;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "IntroductionTextBlock_select".
+ */
+export interface IntroductionTextBlockSelect<T extends boolean = true> {
+  content?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProductCategoriesBlock_select".
+ */
+export interface ProductCategoriesBlockSelect<T extends boolean = true> {
+  productCategories?: T;
   id?: T;
   blockName?: T;
 }
@@ -1307,6 +1402,8 @@ export interface ProductsSelect<T extends boolean = true> {
 export interface ProductVariantsSelect<T extends boolean = true> {
   name?: T;
   color?: T;
+  size?: T;
+  sizeGuide?: T;
   description?: T;
   price?: T;
   discount?: T;
@@ -1315,6 +1412,16 @@ export interface ProductVariantsSelect<T extends boolean = true> {
     | {
         image?: T | ImageBlockSelect<T>;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-size-guides_select".
+ */
+export interface ProductSizeGuidesSelect<T extends boolean = true> {
+  name?: T;
+  guide?: T;
   updatedAt?: T;
   createdAt?: T;
 }

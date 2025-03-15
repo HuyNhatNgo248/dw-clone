@@ -1,6 +1,7 @@
 import { CollectionConfig, CollectionSlug } from 'payload'
 
 import ColorField from '@/fields/ui/atoms/color-field'
+import SizeField from '@/fields/ui/atoms/product-size-field'
 import ImageBlock from '@/fields/ui/atoms/image-block'
 
 export const ProductVariants: CollectionConfig = {
@@ -20,6 +21,17 @@ export const ProductVariants: CollectionConfig = {
       label: 'Color',
       required: true,
     }),
+    SizeField({
+      name: 'size',
+      label: 'Size',
+      required: true,
+    }),
+    {
+      name: 'sizeGuide',
+      type: 'relationship',
+      relationTo: 'product-size-guides' as CollectionSlug,
+      hasMany: false,
+    },
     {
       name: 'description',
       type: 'richText',
