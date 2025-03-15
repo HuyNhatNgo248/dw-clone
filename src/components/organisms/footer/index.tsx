@@ -1,3 +1,5 @@
+'use client'
+
 import type { Footer } from '@/payload-types'
 
 import { cn } from '@/lib/utils'
@@ -15,10 +17,14 @@ const Footer: React.FC<FooterProps> = ({ className, layout }) => {
 
   const { navColumns, socialMedia } = layout[0]
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   return (
     <div
       className={cn(
-        'px-8 md:px-12 py-container w-full bg-gray-100 flex flex-col md:gap-24 gap-16',
+        'relative px-8 md:px-12 py-container w-full bg-gray-100 flex flex-col md:gap-24 gap-16',
         className,
       )}
     >
@@ -30,6 +36,7 @@ const Footer: React.FC<FooterProps> = ({ className, layout }) => {
           }}
         />
       )}
+
       {navColumns && (
         <NavColsMobile
           navColumns={navColumns}
@@ -39,7 +46,7 @@ const Footer: React.FC<FooterProps> = ({ className, layout }) => {
         />
       )}
       {/* Social media */}
-      <div className="flex gap-4 md:justify-start justify-center">
+      <div className="flex gap-4 md:justify-start justify-center md:pb-0 pb-8">
         {socialMedia &&
           socialMedia.map((item, index) => (
             <div key={`${item.id}-${index}`}>
@@ -49,6 +56,13 @@ const Footer: React.FC<FooterProps> = ({ className, layout }) => {
             </div>
           ))}
       </div>
+
+      <button
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 rounded-full p-4 rounded-t-full bg-white rounded-b-none cursor-pointer"
+        onClick={scrollToTop}
+      >
+        <Icon path="lu/LuArrowUp" className="md:size-8 size-6" />
+      </button>
     </div>
   )
 }
