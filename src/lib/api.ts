@@ -13,7 +13,7 @@ export const fetchPage = async (slug: string, query?: Where, depth?: number) => 
     depth: depth || 2,
     where: {
       slug: {
-        equals: slug,
+        contains: slug,
       },
       ...(query || {}),
     },
