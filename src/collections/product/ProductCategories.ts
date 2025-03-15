@@ -1,4 +1,5 @@
 import { CollectionConfig } from 'payload'
+import ImageBlock from '@/fields/ui/atoms/image-block'
 
 export const ProductCategories: CollectionConfig = {
   slug: 'product-categories',
@@ -21,6 +22,13 @@ export const ProductCategories: CollectionConfig = {
     {
       name: 'desc',
       type: 'textarea',
+    },
+    {
+      name: 'representationImage', // required
+      type: 'blocks', // required
+      minRows: 1,
+      maxRows: 1,
+      blocks: [ImageBlock],
     },
   ],
 }

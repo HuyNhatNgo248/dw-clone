@@ -25,7 +25,7 @@ const ComponentMap: ComponentMapType = {
   Hero: {
     'v-1': HeroV1,
   },
-  ProductGrid: {
+  'Product Categories Grid': {
     'v-1': ProductCategoriesGridV1,
     'v-2': ProductCategoriesGridV2,
   },

@@ -439,6 +439,7 @@ export interface ProductCategory {
   slug: string;
   title: string;
   desc?: string | null;
+  representationImage?: ImageBlock[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1369,6 +1370,11 @@ export interface ProductCategoriesSelect<T extends boolean = true> {
   slug?: T;
   title?: T;
   desc?: T;
+  representationImage?:
+    | T
+    | {
+        image?: T | ImageBlockSelect<T>;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
