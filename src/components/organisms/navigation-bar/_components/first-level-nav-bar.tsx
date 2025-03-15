@@ -53,7 +53,9 @@ const FirstLevelNavBar: React.FC<FirstLevelNavBarProps> = ({
           ))}
         </div>
 
-        <div className="lg:text-3xl md:text-2xl text-xl font-semibold tracking-wider">{title}</div>
+        <Link href="/" className="lg:text-3xl md:text-2xl text-xl font-semibold tracking-wider">
+          {title}
+        </Link>
 
         <div className="hidden md:flex gap-6 items-center">
           {rightIconList?.map((icon, index) => (
