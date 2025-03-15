@@ -8,6 +8,10 @@
   @apply xl:py-24 lg:py-20 md:py-16 py-12;
 }
 
+.pb-container {
+  @apply xl:pb-24 lg:pb-20 md:pb-16 pb-12;
+}
+
 .scale-img {
   @apply transform transition duration-800 hover:scale-110;
 }
