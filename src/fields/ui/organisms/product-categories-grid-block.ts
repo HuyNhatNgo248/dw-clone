@@ -13,6 +13,12 @@ const ProductCategoriesGridBlock: Block = {
       type: 'text',
     },
     {
+      name: 'displayCarousel',
+      type: 'checkbox',
+      label: 'Display as Carousel',
+      defaultValue: false,
+    },
+    {
       name: 'productCategories',
       type: 'relationship',
       relationTo: 'product-categories' as CollectionSlug,

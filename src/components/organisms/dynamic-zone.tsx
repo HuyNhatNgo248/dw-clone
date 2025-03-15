@@ -1,5 +1,6 @@
 import type { Page } from '@/payload-types'
 
+import { cn } from '@/lib/utils'
 import HeroV1 from '@/components/organisms/hero/v-1'
 import ProductCategoriesGridV1 from '@/components/organisms/product-categories-grid/v-1'
 import ProductCategoriesGridV2 from '@/components/organisms/product-categories-grid/v-2'
@@ -8,6 +9,9 @@ import PromoV2 from '@/components/organisms/promo/v-2'
 
 interface DynamicZoneProps {
   zone: Page['dynamicZone']
+  classNames?: {
+    container?: string
+  }
 }
 
 type ComponentMapType = {
@@ -35,9 +39,11 @@ const ComponentMap: ComponentMapType = {
   },
 }
 
-const DynamicZone: React.FC<DynamicZoneProps> = ({ zone }) => {
+const DynamicZone: React.FC<DynamicZoneProps> = ({ zone, classNames }) => {
   return (
-    <div className="flex flex-col xl:gap-24 lg:gap-20 md:gap-16 gap-12">
+    <div
+      className={cn('flex flex-col xl:gap-24 lg:gap-20 md:gap-16 gap-12', classNames?.container)}
+    >
       {zone?.map((item, index) => {
         if (!item.blockType || !item.blockName) return null
 

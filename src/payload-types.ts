@@ -425,6 +425,7 @@ export interface PromoBlock {
 export interface ProductCategoriesGridBlock {
   heading?: string | null;
   subheading?: string | null;
+  displayCarousel?: boolean | null;
   productCategories?: (number | ProductCategory)[] | null;
   id?: string | null;
   blockName?: string | null;
@@ -1004,6 +1005,7 @@ export interface PromoBlockSelect<T extends boolean = true> {
 export interface ProductCategoriesGridBlockSelect<T extends boolean = true> {
   heading?: T;
   subheading?: T;
+  displayCarousel?: T;
   productCategories?: T;
   id?: T;
   blockName?: T;
