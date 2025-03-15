@@ -2,6 +2,7 @@ import type { Page } from '@/payload-types'
 
 import { cn } from '@/lib/utils'
 import HeroV1 from '@/components/organisms/hero/v-1'
+import HeroV3 from '@/components/organisms/hero/v-3'
 import ProductCategoriesGridV1 from '@/components/organisms/product-categories-grid/v-1'
 import ProductCategoriesGridV2 from '@/components/organisms/product-categories-grid/v-2'
 import PromoV1 from '@/components/organisms/promo/v-1'
@@ -28,6 +29,7 @@ type ComponentMapType = {
 const ComponentMap: ComponentMapType = {
   Hero: {
     'v-1': HeroV1,
+    'v-3': HeroV3,
   },
   'Product Categories Grid': {
     'v-1': ProductCategoriesGridV1,
@@ -47,7 +49,7 @@ const DynamicZone: React.FC<DynamicZoneProps> = ({ zone, classNames }) => {
       {zone?.map((item, index) => {
         if (!item.blockType || !item.blockName) return null
 
-        const Component = ComponentMap[item.blockType][item.blockName]
+        const Component = ComponentMap[item?.blockType]?.[item?.blockName]
 
         if (!Component) return null
 
