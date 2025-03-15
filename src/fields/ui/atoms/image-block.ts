@@ -21,6 +21,9 @@ const ImageBlock: Block = {
     {
       name: 'link',
       type: 'text',
+      admin: {
+        description: 'Make sure the link matches the slug!', // Helper text displayed below the field
+      },
     },
   ],
 }

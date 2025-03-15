@@ -298,6 +298,9 @@ export interface ImageBlock {
   image: number | Media;
   caption?: string | null;
   description?: string | null;
+  /**
+   * Make sure the link matches the slug!
+   */
   link?: string | null;
   id?: string | null;
   blockName?: string | null;
