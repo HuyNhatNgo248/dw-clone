@@ -6,7 +6,7 @@ import type {
   Page as PageType,
 } from '@/payload-types'
 
-import { fetchCollection } from '@/lib/api'
+import { fetchPage } from '@/lib/api'
 import { notFound } from 'next/navigation'
 import { extractComponent } from '@/lib/utils'
 import ServiceOffers from '@/components/organisms/service-offers'
@@ -15,17 +15,10 @@ import Footer from '@/components/organisms/footer'
 import SubscriptionForm from '@/components/organisms/subscription-form'
 import DynamicZone from '@/components/organisms/dynamic-zone'
 
-import { DataFromCollectionSlug, CollectionSlug } from 'payload'
-
 export default async function CollectionProductsPage({ params }: { params: { slug: string } }) {
   const { slug } = await params
 
-  const data = (await fetchCollection(
-    'pages',
-    `/collections/${slug}`,
-    {},
-    5,
-  )) as DataFromCollectionSlug<CollectionSlug>
+  const data = await fetchPage(`/collections/${slug}`, {}, 5)
 
   if (data === null) return notFound()
 
