@@ -1,17 +1,17 @@
-import type { ProductGridBlock, Media } from '@/payload-types'
+import type { ProductCategoriesGridBlock, Media } from '@/payload-types'
 
 import PayloadImage from '@/components/shared/payload-image'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 
-interface ProductGridV2Props extends ProductGridBlock {
+interface ProductGridV2Props extends ProductCategoriesGridBlock {
   className?: string
 }
 
-const ProductGridV2: React.FC<ProductGridV2Props> = ({ className, layout }) => {
+const ProductGridV2: React.FC<ProductGridV2Props> = ({ className }) => {
   return (
     <div className={cn('w-container grid lg:grid-cols-2 grid-cols-1 gap-2', className)}>
-      {layout?.map((item, index) => (
+      {/* {layout?.map((item, index) => (
         <Link key={`${item.id}-${index}`} href={item.link || '/'}>
           <div className="w-full relative overflow-hidden">
             {item.image && <PayloadImage {...(item.image as Media)} className="scale-img" />}
@@ -23,7 +23,7 @@ const ProductGridV2: React.FC<ProductGridV2Props> = ({ className, layout }) => {
             )}
           </div>
         </Link>
-      ))}
+      ))} */}
     </div>
   )
 }

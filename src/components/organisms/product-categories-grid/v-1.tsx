@@ -1,6 +1,6 @@
 'use client'
 
-import type { ProductGridBlock, Media } from '@/payload-types'
+import type { ProductCategoriesGridBlock, Media } from '@/payload-types'
 
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from '@/components/ui/carousel'
 import { useState } from 'react'
@@ -9,16 +9,11 @@ import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { CarouselNext, CarouselPrev } from '@/components/molecues/carousel'
 
-interface ProductGridV1Props extends ProductGridBlock {
+interface ProductGridV1Props extends ProductCategoriesGridBlock {
   className?: string
 }
 
-const ProductGridV1: React.FC<ProductGridV1Props> = ({
-  className,
-  heading,
-  subheading,
-  layout,
-}) => {
+const ProductGridV1: React.FC<ProductGridV1Props> = ({ className, heading, subheading }) => {
   const [api, setApi] = useState<CarouselApi>()
 
   return (
@@ -40,7 +35,7 @@ const ProductGridV1: React.FC<ProductGridV1Props> = ({
         }}
         className="w-full"
       >
-        <CarouselContent>
+        {/* <CarouselContent>
           {layout?.map((item, index) => (
             <CarouselItem key={index} className="pl-2 lg:basis-1/4 basis-1/2">
               <Link href={item.link || '/'}>
@@ -56,7 +51,7 @@ const ProductGridV1: React.FC<ProductGridV1Props> = ({
               </Link>
             </CarouselItem>
           ))}
-        </CarouselContent>
+        </CarouselContent> */}
       </Carousel>
     </div>
   )

@@ -196,7 +196,9 @@ export interface Page {
   slug: string;
   serviceOffers?: (number | null) | ServiceOffer;
   navigationBar?: (number | null) | NavigationBar;
-  dynamicZone?: (HeroBlock | PromoBlock | ProductGridBlock | IntroductionTextBlock | ProductCategoriesBlock)[] | null;
+  dynamicZone?:
+    | (HeroBlock | PromoBlock | ProductCategoriesGridBlock | ProductCategoriesBlock | IntroductionTextBlock)[]
+    | null;
   subscriptionForm?: (number | null) | SubscriptionForm;
   footer?: (number | null) | Footer;
   updatedAt: string;
@@ -418,15 +420,37 @@ export interface PromoBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ProductGridBlock".
+ * via the `definition` "ProductCategoriesGridBlock".
  */
-export interface ProductGridBlock {
+export interface ProductCategoriesGridBlock {
   heading?: string | null;
   subheading?: string | null;
-  layout?: ImageBlock[] | null;
+  productCategories?: (number | ProductCategory)[] | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'ProductGrid';
+  blockType: 'Product Categories Grid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-categories".
+ */
+export interface ProductCategory {
+  id: number;
+  slug: string;
+  title: string;
+  desc?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProductCategoriesBlock".
+ */
+export interface ProductCategoriesBlock {
+  productCategories?: (number | ProductCategory)[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Product Categories';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -451,28 +475,6 @@ export interface IntroductionTextBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'Introduction Text Block';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ProductCategoriesBlock".
- */
-export interface ProductCategoriesBlock {
-  productCategories?: (number | ProductCategory)[] | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'Product Categories';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "product-categories".
- */
-export interface ProductCategory {
-  id: number;
-  slug: string;
-  title: string;
-  desc?: string | null;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -924,9 +926,9 @@ export interface PagesSelect<T extends boolean = true> {
     | {
         Hero?: T | HeroBlockSelect<T>;
         Promo?: T | PromoBlockSelect<T>;
-        ProductGrid?: T | ProductGridBlockSelect<T>;
-        'Introduction Text Block'?: T | IntroductionTextBlockSelect<T>;
+        'Product Categories Grid'?: T | ProductCategoriesGridBlockSelect<T>;
         'Product Categories'?: T | ProductCategoriesBlockSelect<T>;
+        'Introduction Text Block'?: T | IntroductionTextBlockSelect<T>;
       };
   subscriptionForm?: T;
   footer?: T;
@@ -996,25 +998,12 @@ export interface PromoBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ProductGridBlock_select".
+ * via the `definition` "ProductCategoriesGridBlock_select".
  */
-export interface ProductGridBlockSelect<T extends boolean = true> {
+export interface ProductCategoriesGridBlockSelect<T extends boolean = true> {
   heading?: T;
   subheading?: T;
-  layout?:
-    | T
-    | {
-        image?: T | ImageBlockSelect<T>;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "IntroductionTextBlock_select".
- */
-export interface IntroductionTextBlockSelect<T extends boolean = true> {
-  content?: T;
+  productCategories?: T;
   id?: T;
   blockName?: T;
 }
@@ -1024,6 +1013,15 @@ export interface IntroductionTextBlockSelect<T extends boolean = true> {
  */
 export interface ProductCategoriesBlockSelect<T extends boolean = true> {
   productCategories?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "IntroductionTextBlock_select".
+ */
+export interface IntroductionTextBlockSelect<T extends boolean = true> {
+  content?: T;
   id?: T;
   blockName?: T;
 }

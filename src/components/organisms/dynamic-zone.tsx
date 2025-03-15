@@ -1,8 +1,8 @@
 import type { Page } from '@/payload-types'
 
 import HeroV1 from '@/components/organisms/hero/v-1'
-import ProductGridV1 from '@/components/organisms/product-grid/v-1'
-import ProductGridV2 from '@/components/organisms/product-grid/v-2'
+import ProductCategoriesGridV1 from '@/components/organisms/product-categories-grid/v-1'
+import ProductCategoriesGridV2 from '@/components/organisms/product-categories-grid/v-2'
 import PromoV1 from '@/components/organisms/promo/v-1'
 import PromoV2 from '@/components/organisms/promo/v-2'
 
@@ -14,8 +14,8 @@ type ComponentMapType = {
   [key: string]: {
     [key: string]:
       | typeof HeroV1
-      | typeof ProductGridV1
-      | typeof ProductGridV2
+      | typeof ProductCategoriesGridV1
+      | typeof ProductCategoriesGridV2
       | typeof PromoV1
       | typeof PromoV2
   }
@@ -26,8 +26,8 @@ const ComponentMap: ComponentMapType = {
     'v-1': HeroV1,
   },
   ProductGrid: {
-    'v-1': ProductGridV1,
-    'v-2': ProductGridV2,
+    'v-1': ProductCategoriesGridV1,
+    'v-2': ProductCategoriesGridV2,
   },
   Promo: {
     'v-1': PromoV1,
