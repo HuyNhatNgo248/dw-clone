@@ -6,7 +6,7 @@ import type {
   Page as PageType,
 } from '@/payload-types'
 
-import { fetchPage } from '@/lib/api'
+import { fetchCollection } from '@/lib/api'
 import { notFound } from 'next/navigation'
 import { extractComponent } from '@/lib/utils'
 import ServiceOffers from '@/components/organisms/service-offers'
@@ -16,7 +16,7 @@ import SubscriptionForm from '@/components/organisms/subscription-form'
 import DynamicZone from '@/components/organisms/dynamic-zone'
 
 export default async function HomePage() {
-  const data = await fetchPage('/home-page', {}, 5)
+  const data = await fetchCollection('pages', '/home-page', {}, 5)
 
   if (data === null) return notFound()
 

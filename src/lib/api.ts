@@ -7,9 +7,14 @@ const payloadConfig = await config
 
 export const payload = await getPayload({ config: payloadConfig })
 
-export const fetchPage = async (slug: string, query?: Where, depth?: number) => {
+export const fetchCollection = async (
+  collection: CollectionSlug,
+  slug: string,
+  query?: Where,
+  depth?: number,
+) => {
   const result = await payload.find({
-    collection: 'pages' as CollectionSlug,
+    collection,
     depth: depth || 2,
     where: {
       slug: {
