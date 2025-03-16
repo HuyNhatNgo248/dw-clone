@@ -1,8 +1,8 @@
 import type { IntroductionTextBlock } from '@/payload-types'
 import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 
-import { RichText } from '@payloadcms/richtext-lexical/react'
 import { cn } from '@/lib/utils'
+import PayloadRichText from '@/components/shared/payload-richtext'
 
 interface IntroductionTextV1Props extends IntroductionTextBlock {
   className?: string
@@ -12,9 +12,11 @@ const IntroductionTextV1: React.FC<IntroductionTextV1Props> = ({ className, cont
   return (
     <div className={cn('flex flex-col items-center justify-center p-8', className)}>
       {content && (
-        <RichText
+        <PayloadRichText
           data={content as SerializedEditorState}
-          className="font-light md:w-[65%] w-[85%] text-sm"
+          classNames={{
+            container: 'font-light md:w-[65%] w-[85%] text-sm',
+          }}
         />
       )}
     </div>

@@ -4,7 +4,7 @@ import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical
 import { cn } from '@/lib/utils'
 import { Input } from '../ui/input'
 import Button from '../atoms/button'
-import { RichText } from '@payloadcms/richtext-lexical/react'
+import PayloadRichText from '../shared/payload-richtext'
 
 interface SubscriptionFormProps extends SubscriptionForm {
   className?: string
@@ -41,9 +41,9 @@ const SubscriptionForm: React.FC<SubscriptionFormProps> = ({ className, layout }
             {buttonData && <Button {...buttonData} />}
           </div>
 
-          <RichText
+          <PayloadRichText
             data={privacyStatement as SerializedEditorState}
-            className="text-xs font-light text-center w-[70%]"
+            classNames={{ container: 'text-xs font-light text-center w-[70%]' }}
           />
         </div>
       </div>

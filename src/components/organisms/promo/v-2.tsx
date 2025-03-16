@@ -1,7 +1,7 @@
 import type { PromoBlock, Media, ButtonBlock } from '@/payload-types'
 import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 
-import { RichText } from '@payloadcms/richtext-lexical/react'
+import PayloadRichText from '@/components/shared/payload-richtext'
 import PayloadImage from '@/components/shared/payload-image'
 import { cn } from '@/lib/utils'
 import Button from '@/components/atoms/button'
@@ -23,9 +23,9 @@ const PromoV2: React.FC<PromoV2Props> = ({ className, layout, body, heading }) =
           {heading && <p className="text-xl md:text-left text-center">{heading}</p>}
 
           {body && (
-            <RichText
+            <PayloadRichText
               data={body as SerializedEditorState}
-              className="font-light w-[80%] md:text-left text-center"
+              classNames={{ container: 'font-light w-[80%] md:text-left text-center' }}
             />
           )}
 
