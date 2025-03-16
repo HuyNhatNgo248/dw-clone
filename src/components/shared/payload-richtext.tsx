@@ -1,12 +1,11 @@
-import { RichText } from '@payloadcms/richtext-lexical/react'
-import { cn } from '@/lib/utils'
-
-import Image from 'next/image'
-
 import type { SerializedUploadNode } from '@payloadcms/richtext-lexical'
 import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 import type { JSXConvertersFunction } from '@payloadcms/richtext-lexical/react'
 import type { Media } from '@/payload-types'
+
+import { RichText } from '@payloadcms/richtext-lexical/react'
+import { cn } from '@/lib/utils'
+import Image from 'next/image'
 
 interface PayloadRichTextProps {
   data: SerializedEditorState
