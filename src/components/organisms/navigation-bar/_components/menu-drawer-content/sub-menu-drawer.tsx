@@ -20,15 +20,21 @@ interface SubMenuDrawerProps {
   subDrawerOpen: boolean
   setSubDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>
   mainMenuItem: MainMenuItem | null
+  setMainDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const SubMenuDrawer = forwardRef<HTMLDivElement, SubMenuDrawerProps>(
-  ({ className, subDrawerOpen, setSubDrawerOpen, mainMenuItem }, ref) => {
+  ({ className, subDrawerOpen, setSubDrawerOpen, mainMenuItem, setMainDrawerOpen }, ref) => {
     const container = (ref as RefObject<HTMLDivElement>)?.current || null
 
     if (!mainMenuItem) return null
 
     const { categoryTitle } = mainMenuItem
+
+    const handleCloseDrawers = () => {
+      setSubDrawerOpen(false)
+      setMainDrawerOpen(false)
+    }
 
     return (
       <div className={className}>
@@ -68,6 +74,7 @@ const SubMenuDrawer = forwardRef<HTMLDivElement, SubMenuDrawerProps>(
                     if (item.blockType === 'list-item') {
                       return (
                         <Link
+                          onClick={handleCloseDrawers}
                           key={`sub-menu-${item.id}-${item.blockType}-${index}`}
                           href={item.link || '/'}
                           className="px-6 py-3"
@@ -78,6 +85,7 @@ const SubMenuDrawer = forwardRef<HTMLDivElement, SubMenuDrawerProps>(
                     } else if (item.blockType === 'image') {
                       return (
                         <Link
+                          onClick={handleCloseDrawers}
                           href={item.link || '/'}
                           key={`sub-menu-${item.id}-${item.blockType}-${index}`}
                         >

@@ -9,7 +9,7 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from '@/components/ui/drawer'
-import { useState, useRef, useEffect, Fragment } from 'react'
+import React, { useState, useRef, useEffect, Fragment } from 'react'
 import Icon from '@/components/atoms/icon'
 import Link from 'next/link'
 import SubMenuDrawer from './sub-menu-drawer'
@@ -17,9 +17,15 @@ import { useOpenSubMenu } from '../../_hooks/use-open-submenu'
 
 interface MenuDrawerContentProps extends NavigationMenu {
   className?: string
+  setMainDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const MenuDrawerContent: React.FC<MenuDrawerContentProps> = ({ className, layout, title }) => {
+const MenuDrawerContent: React.FC<MenuDrawerContentProps> = ({
+  className,
+  layout,
+  title,
+  setMainDrawerOpen,
+}) => {
   const [subDrawerOpen, setSubDrawerOpen] = useState(false)
   const [mainMenuItem, setMainMenuItem] = useState<MainMenuItem | null>(null)
   const outerDrawerContentRef = useRef<HTMLDivElement>(null)
@@ -66,7 +72,12 @@ const MenuDrawerContent: React.FC<MenuDrawerContentProps> = ({ className, layout
               {item.layout?.map((item, index) => {
                 if (item.blockType === 'list-item') {
                   return (
-                    <Link className="px-6" href={item.link || '/'} key={`link-${item.id}-${index}`}>
+                    <Link
+                      onClick={() => setMainDrawerOpen(false)}
+                      className="px-6"
+                      href={item.link || '/'}
+                      key={`link-${item.id}-${index}`}
+                    >
                       {item.text}
                     </Link>
                   )
@@ -102,6 +113,7 @@ const MenuDrawerContent: React.FC<MenuDrawerContentProps> = ({ className, layout
         </div>
 
         <SubMenuDrawer
+          setMainDrawerOpen={setMainDrawerOpen}
           subDrawerOpen={subDrawerOpen}
           setSubDrawerOpen={setSubDrawerOpen}
           mainMenuItem={mainMenuItem}

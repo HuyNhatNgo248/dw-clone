@@ -45,7 +45,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ className, layout, naviga
         {level2 && <SecondLevelNavBar {...level2} />}
 
         {navigationMenu && typeof navigationMenu !== 'number' && (
-          <MenuDrawerContent {...navigationMenu} />
+          <MenuDrawerContent {...navigationMenu} setMainDrawerOpen={setMainDrawerOpen} />
         )}
       </Drawer>
     </div>
