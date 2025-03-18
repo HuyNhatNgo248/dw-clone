@@ -6,16 +6,7 @@ import { LuPlus, LuMinus } from 'react-icons/lu'
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
-
-// Define preset colors
-export const COLORS: { [hex: string]: string } = {
-  '#dfc96c': 'Gold',
-  '#e5af87': 'Rose Gold',
-  '#c1c1c1': 'Silver',
-  '#747474': 'Graphite',
-  '#000001': 'Silver',
-  '#000000': 'Black',
-}
+import { COLORS } from '@/lib/utils'
 
 export const validateHexColor = (value: string): boolean | string => {
   return value?.match(/^#(?:[0-9a-fA-F]{3}){1,2}$/)?.length === 1

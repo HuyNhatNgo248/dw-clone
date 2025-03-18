@@ -428,7 +428,15 @@ export interface PromoBlock {
 export interface ProductCategoriesGridBlock {
   heading?: string | null;
   subheading?: string | null;
-  displayCarousel?: boolean | null;
+  gridSettings?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   productCategories?: (number | ProductCategory)[] | null;
   id?: string | null;
   blockName?: string | null;
@@ -658,7 +666,7 @@ export interface ProductInventory {
 export interface Product {
   id: number;
   name: string;
-  category: number | ProductCategory;
+  categories: (number | ProductCategory)[];
   variants: (number | ProductVariant)[];
   layout?: (number | null) | ServiceOffer;
   updatedAt: string;
@@ -1008,7 +1016,7 @@ export interface PromoBlockSelect<T extends boolean = true> {
 export interface ProductCategoriesGridBlockSelect<T extends boolean = true> {
   heading?: T;
   subheading?: T;
-  displayCarousel?: T;
+  gridSettings?: T;
   productCategories?: T;
   id?: T;
   blockName?: T;
@@ -1398,7 +1406,7 @@ export interface ProductInventorySelect<T extends boolean = true> {
  */
 export interface ProductsSelect<T extends boolean = true> {
   name?: T;
-  category?: T;
+  categories?: T;
   variants?: T;
   layout?: T;
   updatedAt?: T;

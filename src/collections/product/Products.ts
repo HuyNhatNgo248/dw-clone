@@ -13,9 +13,10 @@ export const Products: CollectionConfig = {
       required: true,
     },
     {
-      name: 'category',
+      name: 'categories',
       type: 'relationship',
       relationTo: 'product-categories' as CollectionSlug,
+      hasMany: true,
       required: true,
     },
     {

@@ -16,3 +16,19 @@ export function extractComponent(
 
   return (data as Page)[name] || null
 }
+
+export const formatPrice = (price: number) => {
+  return new Intl.NumberFormat('en-US', {
+    style: 'decimal',
+    minimumFractionDigits: 0,
+  }).format(price)
+}
+
+export const COLORS: { [hex: string]: string } = {
+  '#dfc96c': 'Gold',
+  '#e5af87': 'Rose Gold',
+  '#c1c1c1': 'Silver',
+  '#747474': 'Graphite',
+  '#000001': 'Silver',
+  '#000000': 'Black',
+}

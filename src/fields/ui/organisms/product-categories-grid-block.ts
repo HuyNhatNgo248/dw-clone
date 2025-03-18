@@ -1,4 +1,5 @@
 import { Block, CollectionSlug } from 'payload'
+import GridSettingsField from '@/fields/ui/atoms/grid-settings-field'
 
 const ProductCategoriesGridBlock: Block = {
   slug: 'Product Categories Grid',
@@ -12,12 +13,11 @@ const ProductCategoriesGridBlock: Block = {
       name: 'subheading',
       type: 'text',
     },
-    {
-      name: 'displayCarousel',
-      type: 'checkbox',
-      label: 'Display as Carousel',
-      defaultValue: false,
-    },
+
+    GridSettingsField({
+      name: 'gridSettings',
+      label: 'Grid Settings',
+    }),
     {
       name: 'productCategories',
       type: 'relationship',
