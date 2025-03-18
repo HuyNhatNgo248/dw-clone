@@ -52,7 +52,7 @@ const ProductCategoriesGridV1: React.FC<ProductCategoriesGridV1Props> = ({
       <div className="flex justify-between items-end">
         <div className="flex flex-col gap-2">
           {subheading && <p className="text-sm">{subheading}</p>}
-          {heading && <p className="text-xl font-bold">{heading}</p>}
+          {heading && <p className="text-xl font-semibold tracking-wide">{heading}</p>}
         </div>
 
         {enabled && (
