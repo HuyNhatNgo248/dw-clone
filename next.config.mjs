@@ -8,7 +8,8 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '*', // Allow images from all HTTPS domains
+        hostname: 'dw-clone-eta.vercel.app', // Your deployed domain
+        pathname: '/api/media/file/**', // Path to your images
       },
       {
         protocol: 'http',
