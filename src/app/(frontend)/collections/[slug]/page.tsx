@@ -15,7 +15,11 @@ import Footer from '@/components/organisms/footer'
 import SubscriptionForm from '@/components/organisms/subscription-form'
 import DynamicZone from '@/components/organisms/dynamic-zone'
 
-export default async function CollectionProductsPage({ params }: { params: { slug: string } }) {
+export default async function CollectionProductsPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
   const { slug } = await params
 
   const data = await fetchPage(`/collections/${slug}`, {}, 5)
