@@ -20,7 +20,7 @@ const PayloadImage: React.FC<PayloadImageProps> = ({
 
   return (
     <Image
-      src={url}
+      src={`${process.env.NEXT_PUBLIC_API_URL}${url}`}
       alt={alt}
       width={width}
       height={height}
