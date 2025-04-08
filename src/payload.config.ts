@@ -8,6 +8,8 @@ import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 import { EXPERIMENTAL_TableFeature } from '@payloadcms/richtext-lexical'
 
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
+
 // Collections
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
@@ -92,5 +94,15 @@ export default buildConfig({
   plugins: [
     payloadCloudPlugin(),
     // storage-adapter-placeholder
+
+    vercelBlobStorage({
+      enabled: true, // Optional, defaults to true
+      // Specify which collections should use Vercel Blob
+      collections: {
+        media: true,
+      },
+      // Token provided by Vercel once Blob storage is added to your Vercel project
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+    }),
   ],
 })
