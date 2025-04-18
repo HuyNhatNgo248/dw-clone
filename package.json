@@ -13,7 +13,8 @@
     "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
-    "ci": "payload migrate && next build"
+    "ci": "payload migrate && next build",
+    "vercel-blob:migrate": "node ./src/scripts/migrate-to-vercel-blob.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "latest",
@@ -31,10 +32,12 @@
     "@radix-ui/react-tooltip": "^1.1.8",
     "@tailwindcss/postcss": "^4.0.12",
     "@types/lodash": "^4.17.16",
+    "@vercel/blob": "^1.0.0",
     "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cross-env": "^7.0.3",
+    "dotenv": "^16.5.0",
     "embla-carousel-autoplay": "^8.5.2",
     "embla-carousel-react": "^8.5.2",
     "graphql": "^16.8.1",

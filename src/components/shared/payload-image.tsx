@@ -18,9 +18,11 @@ const PayloadImage: React.FC<PayloadImageProps> = ({
 }) => {
   if (!url || !alt || !width || !height) return null
 
+  const baseUrl =
+    process.env.NODE_ENV === 'development' ? '' : process.env.VERCEL_BLOB_STORE_BASE_URL
   return (
     <Image
-      src={`${process.env.NEXT_PUBLIC_API_URL || ''}${url}`}
+      src={`${baseUrl || ''}${url}`}
       alt={alt}
       width={width}
       height={height}
