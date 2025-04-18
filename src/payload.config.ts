@@ -7,7 +7,6 @@ import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 import { EXPERIMENTAL_TableFeature } from '@payloadcms/richtext-lexical'
-
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 
 // Collections
@@ -47,6 +46,8 @@ import { ShoppingSession } from './collections/session/ShoppingSession'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+const isDev = process.env.NODE_ENV === 'development'
 
 export default buildConfig({
   admin: {
@@ -95,14 +96,18 @@ export default buildConfig({
     payloadCloudPlugin(),
     // storage-adapter-placeholder
 
-    vercelBlobStorage({
-      enabled: true, // Optional, defaults to true
-      // Specify which collections should use Vercel Blob
-      collections: {
-        media: true,
-      },
-      // Token provided by Vercel once Blob storage is added to your Vercel project
-      token: process.env.BLOB_READ_WRITE_TOKEN,
-    }),
+    ...(!isDev
+      ? [
+          vercelBlobStorage({
+            enabled: true, // Optional, defaults to true
+            // Specify which collections should use Vercel Blob
+            collections: {
+              media: true,
+            },
+            // Token provided by Vercel once Blob storage is added to your Vercel project
+            token: process.env.BLOB_READ_WRITE_TOKEN,
+          }),
+        ]
+      : []),
   ],
 })
