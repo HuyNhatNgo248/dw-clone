@@ -28,10 +28,8 @@ export default async function CollectionsPage() {
 
   return (
     <div className="w-full">
-      <div className="top-0 sticky z-50">
-        {serviceOffers && <ServiceOffers {...serviceOffers} />}
-        {navigationBar && <NavigationBar {...navigationBar} />}
-      </div>
+      {serviceOffers && <ServiceOffers {...serviceOffers} />}
+      {navigationBar && <NavigationBar {...navigationBar} className="top-0 sticky z-50" />}
       {dynamicZone && (
         <DynamicZone
           zone={dynamicZone}

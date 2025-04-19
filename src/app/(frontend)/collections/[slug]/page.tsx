@@ -33,11 +33,9 @@ export default async function CollectionProductsPage({
   const dynamicZone = extractComponent('dynamicZone', data) as PageType['dynamicZone'] | null
 
   return (
-    <div className="w-full">
-      <div className="top-0 sticky z-50">
-        {serviceOffers && <ServiceOffers {...serviceOffers} />}
-        {navigationBar && <NavigationBar {...navigationBar} />}
-      </div>
+    <div className="w-full relative">
+      {serviceOffers && <ServiceOffers {...serviceOffers} />}
+      {navigationBar && <NavigationBar {...navigationBar} className="top-0 sticky z-50" />}
       {dynamicZone && (
         <DynamicZone
           zone={dynamicZone}
