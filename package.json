@@ -14,7 +14,7 @@
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "ci": "payload migrate && next build",
-    "vercel-blob:migrate": "node ./src/scripts/migrate-to-vercel-blob.ts"
+    "vercel-blob:update": "node ./src/scripts/update-vercel-blob.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "latest",
