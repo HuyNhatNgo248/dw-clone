@@ -31,6 +31,12 @@ const PayloadImage: React.FC<PayloadImageProps> = ({
       sizes={sizes}
       className={cn('w-full h-full object-cover', className)}
       priority={priority}
+      // Next 15's `priority` preloads but doesn't raise fetch priority, so ask for it explicitly
+      fetchPriority={priority ? 'high' : undefined}
+      // shortcut: hero images skip the optimizer (up to ~0.7s on a cold cache) and download the
+      // original as-is: 47–152 KB JPEGs today, new uploads capped at 2000px WebP. Switch to a blur
+      // placeholder instead if heroes ever get heavy.
+      unoptimized={priority}
     />
   )
 }
