@@ -1,5 +1,11 @@
 @import 'tailwindcss';
 
+/* Was in tailwind.config.ts, which Tailwind 4 never read */
+@theme {
+  --font-sans: 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: 'Times New Roman', serif;
+}
+
 .w-container {
   @apply mx-auto max-w-[1280px] w-[90%];
 }

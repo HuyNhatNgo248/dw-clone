@@ -24,7 +24,11 @@ const ProductCategoriesGridV2: React.FC<ProductCategoriesGridV2Props> = ({
           <Link key={`${item.id}-${index}`} href={imageData.link || '/'}>
             <div className="w-full relative overflow-hidden">
               {item.representationImage && (
-                <PayloadImage {...(imageData.image as Media)} className="scale-img" />
+                <PayloadImage
+                  {...(imageData.image as Media)}
+                  className="scale-img"
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                />
               )}
 
               {imageData.caption && (

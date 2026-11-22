@@ -21,16 +21,17 @@ const ProductCategoriesV1: React.FC<ProductCategoriesV1Props> = async ({
   className,
   productCategories,
 }) => {
-  if (!productCategories) return null
+  const category = productCategories?.[0] as ProductCategory | undefined
+  if (!category) return null
 
   const data = await fetchCollection(
     'products',
     {
       categories: {
-        equals: (productCategories[0] as ProductCategory).id,
+        equals: category.id,
       },
     },
-    5,
+    2, // product -> variants -> media
   )
 
   const colorOrder = Object.keys(COLORS)
@@ -39,9 +40,9 @@ const ProductCategoriesV1: React.FC<ProductCategoriesV1Props> = async ({
     <div className={cn('grid lg:grid-cols-4 grid-cols-2 gap-2 w-container w-[95%]!', className)}>
       {data &&
         (data as Product[]).map((product, index) => {
-          console.log(product.variants)
+          const variant = product.variants?.[0] as ProductVariant | undefined
+          if (!variant) return null
 
-          const variant = product.variants[0] as ProductVariant
           const imageData1 = variant.images?.[0]?.image
           const imageData2 = variant.images?.[1]?.image
 
@@ -61,13 +62,18 @@ const ProductCategoriesV1: React.FC<ProductCategoriesV1Props> = async ({
                 <div className="absolute inset-0 transition-all duration-800 ease-in-out transform scale-100 group-hover:scale-110">
                   <PayloadImage
                     {...(imageData1 as Media)}
-                    className="w-full h-full object-cover group-hover:opacity-0 transition-opacity duration-300"
+                    sizes="(min-width: 1024px) 25vw, 50vw"
+                    className="w-full h-full object-cover md:group-hover:opacity-0 transition-opacity duration-300"
                   />
                 </div>
 
-                {/* Second Image */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-100">
-                  <PayloadImage {...(imageData2 as Media)} className="w-full h-full object-cover" />
+                {/* Second Image: hover-only, so hidden (and never downloaded) on touch screens */}
+                <div className="hidden md:block absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-100">
+                  <PayloadImage
+                    {...(imageData2 as Media)}
+                    sizes="(min-width: 1024px) 25vw, 50vw"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
 
                 <div className="md:block hidden absolute top-[5%] right-[5%]">

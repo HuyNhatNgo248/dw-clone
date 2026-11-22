@@ -38,6 +38,7 @@ const PayloadRichText: React.FC<PayloadRichTextProps> = ({ data, classNames }) =
           alt={media.alt || 'Uploaded image'}
           width={media.width || 800}
           height={media.height || 600}
+          sizes="(min-width: 768px) 50vw, 100vw"
           className={cn('mx-auto', classNames?.image)}
         />
       )

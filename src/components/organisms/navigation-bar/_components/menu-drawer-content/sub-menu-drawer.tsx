@@ -11,7 +11,7 @@ import {
   DrawerTitle,
 } from '@/components/ui/drawer'
 import { forwardRef, RefObject, Fragment } from 'react'
-import Icon from '@/components/atoms/icon'
+import { ChevronLeft } from 'lucide-react'
 import Link from 'next/link'
 import PayloadImage from '@/components/shared/payload-image'
 
@@ -54,7 +54,7 @@ const SubMenuDrawer = forwardRef<HTMLDivElement, SubMenuDrawerProps>(
               <div className="flex justify-between items-center">
                 <DrawerClose asChild>
                   <button className="cursor-pointer">
-                    <Icon path="lu/LuChevronLeft" className="size-6" />
+                    <ChevronLeft className="size-6 stroke-1" />
                   </button>
                 </DrawerClose>
 
@@ -94,7 +94,7 @@ const SubMenuDrawer = forwardRef<HTMLDivElement, SubMenuDrawerProps>(
                               <PayloadImage
                                 {...(item.image as Media)}
                                 className="scale-img"
-                                priority={true}
+                                sizes="(min-width: 640px) 384px, 100vw"
                               />
                             )}
 

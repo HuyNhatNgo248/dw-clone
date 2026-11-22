@@ -14,7 +14,12 @@ const HeroV1: React.FC<HeroV1Props> = ({ className, heading, subheading, layout 
     <div className={className}>
       <div className="md:h-screen h-[40vh] w-full relative">
         {imageData && imageData.url && (
-          <PayloadImage {...imageData} className="object-[24%_center]" priority={true} />
+          <PayloadImage
+            {...imageData}
+            className="object-[24%_center]"
+            sizes="100vw"
+            priority={true}
+          />
         )}
 
         <div className="absolute top-1/4 right-[6%] hidden md:flex flex-col justify-center items-center">

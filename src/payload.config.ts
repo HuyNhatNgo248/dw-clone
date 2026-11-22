@@ -1,6 +1,5 @@
 // storage-adapter-import-placeholder
 import { postgresAdapter } from '@payloadcms/db-postgres'
-import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -93,21 +92,23 @@ export default buildConfig({
   }),
   sharp,
   plugins: [
-    payloadCloudPlugin(),
     // storage-adapter-placeholder
-
-    ...(!isDev
-      ? [
-          vercelBlobStorage({
-            enabled: true, // Optional, defaults to true
-            // Specify which collections should use Vercel Blob
-            collections: {
-              media: true,
-            },
-            // Token provided by Vercel once Blob storage is added to your Vercel project
-            token: process.env.BLOB_READ_WRITE_TOKEN,
-          }),
-        ]
-      : []),
+    vercelBlobStorage({
+      enabled: !isDev,
+      // Keep the plugin's DB columns in dev too, so dev and prod schemas match
+      alwaysInsertFields: true,
+      // Specify which collections should use Vercel Blob
+      collections: {
+        media: {
+          // Where the existing files live in the Blob store (see src/scripts/update-vercel-blob.ts)
+          prefix: 'api/media/file',
+          // Media is public, so serve `url` straight from the Blob CDN instead of proxying every
+          // image through a Payload function
+          disablePayloadAccessControl: true,
+        },
+      },
+      // Token provided by Vercel once Blob storage is added to your Vercel project
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+    }),
   ],
 })

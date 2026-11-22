@@ -15,7 +15,10 @@ interface ProductCategoriesGridV1Props extends ProductCategoriesGridBlock {
   className?: string
 }
 
-const ProductCategoryItem: React.FC<{ item: ProductCategory }> = ({ item }) => {
+const ProductCategoryItem: React.FC<{ item: ProductCategory; sizes: string }> = ({
+  item,
+  sizes,
+}) => {
   const imageData = extractImage(item.representationImage)
 
   if (!imageData) return null
@@ -23,7 +26,9 @@ const ProductCategoryItem: React.FC<{ item: ProductCategory }> = ({ item }) => {
   return (
     <Link href={imageData.link || '/'}>
       <div className="w-full relative overflow-hidden">
-        {imageData.image && <PayloadImage {...(imageData.image as Media)} className="scale-img" />}
+        {imageData.image && (
+          <PayloadImage {...(imageData.image as Media)} className="scale-img" sizes={sizes} />
+        )}
 
         {imageData.caption && (
           <p className="absolute bottom-[5%] left-1/2 -translate-x-1/2 font-thin sm:text-sm text-xs tracking-wide whitespace-nowrap">
@@ -46,6 +51,8 @@ const ProductCategoriesGridV1: React.FC<ProductCategoriesGridV1Props> = ({
 
   // Destructure gridSettings to avoid repetitive casting
   const { enabled, basis } = (gridSettings as GridSettingsPayload | null) || {}
+  // Mirrors the basis-1/2 + lg:basis-1/{basis} / lg:grid-cols-{basis} classes below
+  const sizes = basis ? `(min-width: 1024px) ${Math.ceil(100 / basis)}vw, 50vw` : '50vw'
 
   return (
     <div className={cn('w-container flex flex-col gap-4', className)}>
@@ -87,7 +94,7 @@ const ProductCategoriesGridV1: React.FC<ProductCategoriesGridV1Props> = ({
                     'lg:basis-full': basis === 1,
                   })}
                 >
-                  <ProductCategoryItem item={item} />
+                  <ProductCategoryItem item={item} sizes={sizes} />
                 </CarouselItem>
               )
             })}
@@ -105,7 +112,7 @@ const ProductCategoriesGridV1: React.FC<ProductCategoriesGridV1Props> = ({
           })}
         >
           {(productCategories as ProductCategory[] | null)?.map((item, index) => (
-            <ProductCategoryItem key={index} item={item} />
+            <ProductCategoryItem key={index} item={item} sizes={sizes} />
           ))}
         </div>
       )}

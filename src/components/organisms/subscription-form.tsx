@@ -15,8 +15,8 @@ const SubscriptionForm: React.FC<SubscriptionFormProps> = ({ className, layout }
 
   const { heading, subheading, privacyStatement, layout: formLayout } = layout[0] || {}
 
-  const inputData = formLayout?.[0].layout?.find((item) => item.blockType === 'Input')
-  const buttonData = formLayout?.[0].layout?.find((item) => item.blockType === 'Button')
+  const inputData = formLayout?.[0]?.layout?.find((item) => item.blockType === 'Input')
+  const buttonData = formLayout?.[0]?.layout?.find((item) => item.blockType === 'Button')
 
   return (
     <div className={cn('py-container w-full border-y-1 border-gray-200', className)}>

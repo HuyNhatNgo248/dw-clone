@@ -10,7 +10,9 @@ export const payload = await getPayload({ config: payloadConfig })
 export const fetchPage = async (slug: string | null, query?: Where, depth?: number) => {
   const result = await payload.find({
     collection: 'pages',
-    depth: depth || 2,
+    depth: depth ?? 2,
+    limit: 1,
+    pagination: false, // skips the extra COUNT query
     where: {
       slug: {
         equals: slug,
@@ -19,11 +21,7 @@ export const fetchPage = async (slug: string | null, query?: Where, depth?: numb
     },
   })
 
-  if (result.totalDocs === 0) {
-    return null
-  }
-
-  return result.docs[0]
+  return result.docs[0] ?? null
 }
 
 export const fetchCollection = async (
@@ -31,17 +29,16 @@ export const fetchCollection = async (
   query?: Where,
   depth?: number,
 ) => {
+  // shortcut: returns every match (Payload's default page size of 10 silently capped product grids);
+  // add real pagination if a category grows to hundreds of products
   const result = await payload.find({
     collection,
-    depth: depth || 2,
+    depth: depth ?? 2,
+    pagination: false,
     where: {
       ...(query || {}),
     },
   })
 
-  if (result.totalDocs === 0) {
-    return null
-  }
-
-  return result.docs
+  return result.docs.length ? result.docs : null
 }

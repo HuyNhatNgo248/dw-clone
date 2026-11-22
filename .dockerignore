@@ -1,0 +1,9 @@
+# Keep host builds and local data out of the image (macOS node_modules would break sharp on Alpine).
+# .env stays in: `next build` prerenders pages from the DB.
+node_modules
+.next
+.git
+media
+*.log
+.DS_Store
+.vscode

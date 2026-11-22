@@ -1,5 +1,3 @@
-'use client'
-
 import type { ServiceOffer } from '@/payload-types'
 
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'

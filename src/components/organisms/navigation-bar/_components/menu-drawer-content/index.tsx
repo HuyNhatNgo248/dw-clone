@@ -10,7 +10,7 @@ import {
   DrawerTitle,
 } from '@/components/ui/drawer'
 import React, { useState, useRef, useEffect, Fragment } from 'react'
-import Icon from '@/components/atoms/icon'
+import { ChevronRight, X } from 'lucide-react'
 import Link from 'next/link'
 import SubMenuDrawer from './sub-menu-drawer'
 import { useOpenSubMenu } from '../../_hooks/use-open-submenu'
@@ -59,7 +59,7 @@ const MenuDrawerContent: React.FC<MenuDrawerContentProps> = ({
 
             <DrawerClose asChild>
               <button className="cursor-pointer">
-                <Icon path="lu/LuX" className="size-6 stroke-1" />
+                <X className="size-6 stroke-1" />
               </button>
             </DrawerClose>
           </div>
@@ -95,7 +95,7 @@ const MenuDrawerContent: React.FC<MenuDrawerContentProps> = ({
                     >
                       <p>{item.categoryTitle}</p>
 
-                      <Icon path="lu/LuChevronRight" className="size-6" />
+                      <ChevronRight className="size-6 stroke-1" />
                     </div>
                   ))
                 }

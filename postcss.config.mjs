@@ -1,8 +1,7 @@
 const config = {
   plugins: {
-    'postcss-import': {},
+    // Tailwind 4 already inlines @import and adds vendor prefixes
     '@tailwindcss/postcss': {},
-    autoprefixer: {}, // Required for vendor prefixing
   },
 }
 export default config

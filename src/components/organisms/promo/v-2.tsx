@@ -16,7 +16,9 @@ const PromoV2: React.FC<PromoV2Props> = ({ className, layout, body, heading }) =
   const buttonData = layout?.find((item) => item.blockType === 'Button')
   return (
     <div className={cn('grid md:grid-cols-2 grid-cols-1 w-container gap-12', className)}>
-      {imageData && <PayloadImage {...(imageData as Media)} />}
+      {imageData && (
+        <PayloadImage {...(imageData as Media)} sizes="(min-width: 768px) 50vw, 100vw" />
+      )}
 
       <div className="flex flex-col justify-center items-center">
         <div className="flex flex-col justify-center gap-4 md:items-start items-center xl:w-[60%] lg:w-[70%] md:w-[80%] w-[90%]">

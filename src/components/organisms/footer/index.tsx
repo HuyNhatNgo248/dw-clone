@@ -1,5 +1,3 @@
-'use client'
-
 import type { Footer } from '@/payload-types'
 
 import { cn } from '@/lib/utils'
@@ -7,19 +5,16 @@ import NavColsMobile from './nav-cols-mobile'
 import NavColsDesktop from './nav-cols-desktop'
 import Icon from '@/components/atoms/icon'
 import Link from 'next/link'
+import ScrollToTopButton from './scroll-to-top-button'
 
 interface FooterProps extends Footer {
   className?: string
 }
 
 const Footer: React.FC<FooterProps> = ({ className, layout }) => {
-  if (!layout) return null
+  if (!layout?.[0]) return null
 
   const { navColumns, socialMedia } = layout[0]
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
 
   return (
     <div
@@ -57,12 +52,7 @@ const Footer: React.FC<FooterProps> = ({ className, layout }) => {
           ))}
       </div>
 
-      <button
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 rounded-full p-4 rounded-t-full bg-white rounded-b-none cursor-pointer"
-        onClick={scrollToTop}
-      >
-        <Icon path="lu/LuArrowUp" className="md:size-8 size-6" />
-      </button>
+      <ScrollToTopButton />
     </div>
   )
 }
